@@ -1,22 +1,5 @@
 var
 
-undefined = I(),
-create = curry(function(p,o,_){
-  var B = function(){};
-  B.prototype = p;
-  return extend(new B(),o);
-}),
-promiseLeaf = create(promisePrototype,{
-  observers: [],
-  value:     undefined,
-  resolved:  false
-}),
-Promise = function(v){
-  var p = promiseLeaf();
-  return v
-    ? p.resolve(v)
-    : p;
-},
 
 promisePrototype = {
   //We need to maintain a stack initially
@@ -32,7 +15,7 @@ promisePrototype = {
     me = this,
     z;
     each(function(i,fn){
-      apply(fn,me,args); 
+      apply(fn,me,args);
     },this.observers);
     return this;
   },
@@ -60,12 +43,22 @@ promisePrototype = {
     }
   }
 },
-
-need = (function(){
-  var modules = {};
-  return function(module){
-
-  };
-})(),
+promiseLeaf = create(promisePrototype,{
+  observers: [],
+  value:     undefined,
+  resolved:  false
+}),
+Promise = function(v){
+  var p = promiseLeaf();
+  return v
+    ? p.resolve(v)
+    : p;
+},
 
 z;
+
+Promise.s = {
+  all: function(promises){
+    
+  }
+};

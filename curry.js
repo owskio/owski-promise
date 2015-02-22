@@ -32,28 +32,36 @@ getArity = function(fn){
   args.unshift();
   return args;
 },
+partial = function(fn,argumentArray){
+  return arrayFunction(function(args){
+    return applyStrict(fn,this,argumentArray.concat(args));
+  });
+},
 curry = function(arity,fn){
   if(typeof(fn) === 'undefined'){
-    return function(){};
+    if(typeof(arity) === 'function'){
+      arity = getArity(fn);
+    } else if(typeof(arity) === 'number'){
+      return function(fn){
+        return curry(arity,fn);
+      };
+    }
   }
-  arity = arity || getArity(fn);
-  return function () {
-    var len = arguments.length;
+
+  return arrayFunction(function (args) {
+    var len = args.length;
     return len >= arity || !len
-    ? applyStrict(fn,this, arguments)
+    ? applyStrict(fn,this,args)
     : curry(
-      arity - arguments.length,
-      applyStrict(
-        curry,
-        this,
-        [fn].concat(argumentsToArray(arguments))
-      )
-    );
-  };
+        arity - len,
+        partial(fn,args)
+      );
+  });
 },
 apply = curry(function(fn,context,args){
   return applyStrict(fn,context,args);
 }),
+curry2 = curry(2),
 curry3 = curry(3),
 create = curry3(function(p,o){
   var B = function(){};
