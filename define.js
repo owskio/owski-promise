@@ -17,6 +17,7 @@ getPromise = function(name){
     || loadModule(name);
 },
 define = function(name,reqs,fn){
+  //needs overloading
   return modules[name] = chain(
     K(reqs),
     map(dot(modules)),
