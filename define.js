@@ -46,7 +46,9 @@ getScriptPromise = function(url){
 },
 
 define = function(name,reqs,fn){
-  //needs overloading
+  //needs define('mod',fn)
+  //needs require(['mod'],fn)
+  //needs require(['mod'])
   var modulePromises = [];
   for (var i in reqs) {
     var
@@ -57,13 +59,7 @@ define = function(name,reqs,fn){
   var newPromise = Promise.s
     .all(modulePromises)
     .then(fn);
-  // var
-  // newPromise = chain(
-  //   K(reqs),
-  //   map(getModulePromise),
-  //   Promise.s.all,
-  //   dotApply('then',[fn])
-  // )(),
+
   oldPromise = modules[name];
   newPromise.then(function(val){
     oldPromise.resolve(val);
