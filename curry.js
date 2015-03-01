@@ -1,6 +1,6 @@
 
 var
-
+ 
 applyStrict = function(fn,context,argumentArray){
   return typeof(fn) === 'function'
   ?  fn.apply(context,argumentArray)
