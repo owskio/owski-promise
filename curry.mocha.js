@@ -8,6 +8,7 @@ partial = haskell.partial,
 applyStrict = haskell.applyStrict,
 arrayFunction = haskell.arrayFunction,
 getArity = haskell.getArity,
+partial = haskell.partial,
 
 product = function(a,b,c){
   return a*b*c;
@@ -39,7 +40,12 @@ describe('getArity',function(){
     );
   });
 });
-
+describe('partial',function(){
+  it('should return a partially applied ref',function(){
+    partial(product,[5,5])(5)
+    .must.equal(125);
+  });
+});
 
 describe('curry',function(){
 
