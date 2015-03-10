@@ -1,5 +1,8 @@
 var
 
+util = require('./util'),
+
+create = util.create,
 
 promisePrototype = {
   //We need to maintain a stack initially
@@ -59,6 +62,8 @@ z;
 
 Promise.s = {
   all: function(promises){
-    
+
   }
 };
+
+module.exports = Promise;
