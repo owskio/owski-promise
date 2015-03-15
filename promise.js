@@ -2,7 +2,7 @@ var
 
 util = require('./util'),
 
-create = util.create,
+createLazy = util.createLazy,
 
 promisePrototype = {
   //We need to maintain a stack initially
@@ -46,7 +46,7 @@ promisePrototype = {
     }
   }
 },
-promiseLeaf = create(promisePrototype,{
+promiseLeaf = createLazy(promisePrototype,{
   observers: [],
   value:     undefined,
   resolved:  false
