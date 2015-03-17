@@ -1,3 +1,29 @@
-"scripts": {
-  "test": "mocha"
+{
+  "name": "simplePromise",
+  "version": "0.0.1",
+  "description": "promise implementation as simple as possible",
+  "main": "promise.js",
+  "dependencies": {
+    "must": "^0.12.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha promise.mocha.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/theodorecackowski/simplePromise.git"
+  },
+  "keywords": [
+    "promise",
+    "curry",
+    "currying",
+    "composition",
+    "easy",
+    "simple",
+    "straight-forward"
+  ],
+  "author": "theodorecackowski",
+  "license": "MIT",
+  "mocha":"mocha util.mocha.js"
 }

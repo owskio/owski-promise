@@ -1,9 +1,15 @@
 var
 
-util = require('./util'),
+u = require('./util'),
+createLazy = u.createLazy,
+each = u.each,
+apply = u.apply,
 
-createLazy = util.createLazy,
-
+isPromise = function(obj){
+  return typeof(obj) !== 'undefined'
+  && typeof(obj.then) === 'function'
+  && typeof(obj.resolved) === 'boolean';
+},
 promisePrototype = {
   //We need to maintain a stack initially
   //but then upon resolution, to call to
@@ -17,28 +23,35 @@ promisePrototype = {
     args = arguments,
     me = this,
     z;
+    console.log('observers: ',this.observers);
     each(function(i,fn){
       apply(fn,me,args);
     },this.observers);
     return this;
   },
   then: function(fn){
+    //var me = this;
     var nu = Promise();
     if (this.resolved) {
+      console.log('resolved');
       var result = apply(fn,this,[this.value]);
-      if (result instanceof Promise) {
+      if (isPromise(result)) {
         return result;
       } else {
         return nu.resolve(result);
       }
     } else {
       this.observers.push(function(){
+        console.log('arguments: ',arguments);
+        console.log('fn: ',fn);
         var result = apply(fn,this,arguments);
-        if (result instanceof Promise)  {
+        console.log('result: ',result);
+        if (isPromise(result))  {
           result.then(function(v){
             nu.resolve(v);
           });
         } else {
+          console.log('D');
           nu.resolve(result);
         }
       });

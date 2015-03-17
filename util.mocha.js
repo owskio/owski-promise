@@ -97,6 +97,11 @@ describe('Util',function(){
     created.must.have.property('a',1);
     created.must.have.property('b',2);
   });
+  it('createLazy should create objects',function(){
+    var created = createLazy({a:1},{b:2})();
+    created.must.have.property('a',1);
+    created.must.have.property('b',2);
+  });
   it('createLazy must create distinct objects',function(){
     var
     c = createLazy({a:1},{b:2}),

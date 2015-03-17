@@ -2,13 +2,13 @@
 require('must');
 
 var
-haskell = require('./curry'),
-curry = haskell.curry,
-partial = haskell.partial,
-applyStrict = haskell.applyStrict,
-arrayFunction = haskell.arrayFunction,
-getArity = haskell.getArity,
-partial = haskell.partial,
+c       = require('./curry'),
+curry         = c.curry,
+partial       = c.partial,
+applyStrict   = c.applyStrict,
+arrayFunction = c.arrayFunction,
+getArity      = c.getArity,
+partial       = c.partial,
 
 product = function(a,b,c){
   return a*b*c;
@@ -49,9 +49,11 @@ describe('partial',function(){
 
 describe('curry',function(){
 
-  var f = curry(function(a,b,c){
+  var
+  sum = function(a,b,c){
     return a + b + c;
-  });
+  },
+  f = curry(sum);
 
   it('should generalize application',function(){
     f('a','b','c')
@@ -62,7 +64,7 @@ describe('curry',function(){
   });
 
   it('should generalize partial application',function(){
-    partial(f,['a','b'])()
+    partial(sum,['a','b'])()
       .must
       .equal(
         f('a')('b')()
