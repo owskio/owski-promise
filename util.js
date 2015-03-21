@@ -35,6 +35,8 @@ reduce = curry(function(acc,fn,list){
 }),
 reduceStrings = reduce(''),
 reduceNumbers = reduce(0),
+reduceBools   = reduce(false),
+
 // chew = function(target,adapters){
 //   return arrayFunction(function(args){
 //     for(var i in args){
@@ -76,12 +78,13 @@ extend = arrayFunction(function(args){
   },sources);
   return target;
 }),
-createLazy = curry3(function(p,o){
+create = curry(function(p,o){
   //create(prot,Cons)
   var B = function(){};
   B.prototype = p;
   return extend(new B(),o);
 }),
+createLazy = curry3(create),
 
 I = function(x){ return x; },
 K = function(x){
@@ -90,6 +93,8 @@ K = function(x){
   };
 },
 undefined = I(),
+
+all = reduceBools(function(a,b){ return a && b; }),
 z;
 
 module.exports = {
@@ -98,6 +103,7 @@ module.exports = {
   curry2: curry2,
   curry3: curry3,
   extend: extend,
+  create: create,
   createLazy: createLazy,
   reduce: reduce,
   reduceStrings: reduceStrings,
@@ -112,5 +118,6 @@ module.exports = {
   K : K,
   undefined: undefined,
   tail: tail,
-  head: head
+  head: head,
+  all: all,
 };

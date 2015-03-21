@@ -1,14 +1,16 @@
 var
 
-u = require('./util'),
-createLazy = u.createLazy,
-each = u.each,
-apply = u.apply,
+u      = require('./util'),
+create = u.create,
+each   = u.each,
+apply  = u.apply,
+all    = u.all,
 
 isPromise = function(obj){
   return typeof(obj) !== 'undefined'
   && typeof(obj.then) === 'function'
-  && typeof(obj.resolved) === 'boolean';
+  && typeof(obj.resolved) === 'boolean'
+  && typeof(obj.observers) === 'object';
 },
 promisePrototype = {
   //We need to maintain a stack initially
@@ -21,9 +23,7 @@ promisePrototype = {
     this.resolved = true;
     var
     args = arguments,
-    me = this,
-    z;
-    console.log('observers: ',this.observers);
+    me = this;
     each(function(i,fn){
       apply(fn,me,args);
     },this.observers);
@@ -33,25 +33,19 @@ promisePrototype = {
     //var me = this;
     var nu = Promise();
     if (this.resolved) {
-      console.log('resolved');
       var result = apply(fn,this,[this.value]);
-      if (isPromise(result)) {
-        return result;
-      } else {
-        return nu.resolve(result);
-      }
+      return isPromise(result)
+        ? result
+        : nu.resolve(result)
+        ;
     } else {
       this.observers.push(function(){
-        console.log('arguments: ',arguments);
-        console.log('fn: ',fn);
         var result = apply(fn,this,arguments);
-        console.log('result: ',result);
         if (isPromise(result))  {
           result.then(function(v){
             nu.resolve(v);
           });
         } else {
-          console.log('D');
           nu.resolve(result);
         }
       });
@@ -59,23 +53,34 @@ promisePrototype = {
     }
   }
 },
-promiseLeaf = createLazy(promisePrototype,{
-  observers: [],
-  value:     undefined,
-  resolved:  false
-}),
+promiseHusk = create(promisePrototype),
 Promise = function(v){
-  var p = promiseLeaf();
-  return v
-    ? p.resolve(v)
-    : p;
+  return promiseHusk({
+    observers: [],
+    value:     v,
+    resolved:  v ? true : false
+  });
 },
 
 z;
 
 Promise.s = {
   all: function(promises){
-
+    var
+    nu = Promise(),
+    resolutions = [],
+    results = [];
+    each(function(i,promise){
+      resolutions[i] = false;
+      promise.then(function(v){
+        resolutions[i] = true;
+        results[i] = v;
+        if(all(resolutions)){
+          apply(nu.resolve,nu,results);
+        }
+      });
+    },promises);
+    return nu;
   }
 };
 
