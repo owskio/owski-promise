@@ -30,14 +30,13 @@ describe('Promises',function(){
   it('should defer execution for unresolved values',function(done){
     var p = Promise();
     p.then(function(five){
-      console.log('asserting');
       five.must.equal(5);
       done();
       return 8;
     });
     p.resolve(5);
   });
-  it('should provide a consolidation mechanism',function(){
+  it('should provide a consolidation mechanism',function(done){
     var
     p1 = Promise(),
     p2 = Promise();

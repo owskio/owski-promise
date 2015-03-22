@@ -5,6 +5,8 @@ create = u.create,
 each   = u.each,
 apply  = u.apply,
 all    = u.all,
+c = require('./curry'),
+arrayFunction = c.arrayFunction,
 
 isPromise = function(obj){
   return typeof(obj) !== 'undefined'
@@ -65,23 +67,42 @@ Promise = function(v){
 z;
 
 Promise.s = {
-  all: function(promises){
+  all: arrayFunction(function(promises){
     var
     nu = Promise(),
-    resolutions = [],
-    results = [];
+    results = [],
+    every;
     each(function(i,promise){
-      resolutions[i] = false;
-      promise.then(function(v){
-        resolutions[i] = true;
+      every = promise.then(function(v){
+        console.log('i,value: ',i,v);
         results[i] = v;
-        if(all(resolutions)){
-          apply(nu.resolve,nu,results);
-        }
+        console.log('typeof(promises[i+1])',typeof(promises[i+1]));
+        return promises[i+1] || Promise('dontCare');
       });
     },promises);
+    every.then(function(){
+      console.log('results: ',results);
+      apply(nu.resolve,nu,results);
+    });
     return nu;
-  }
+  })
+  // all: function(promises){
+  //   var
+  //   nu = Promise(),
+  //   resolutions = [],
+  //   results = [];
+  //   each(function(i,promise){
+  //     resolutions[i] = false;
+  //     promise.then(function(v){
+  //       resolutions[i] = true;
+  //       results[i] = v;
+  //       if(all(resolutions)){
+  //         apply(nu.resolve,nu,results);
+  //       }
+  //     });
+  //   },promises);
+  //   return nu;
+  // }
 };
 
 module.exports = Promise;
