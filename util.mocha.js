@@ -2,22 +2,23 @@
 require('must');
 
 var
-c = require('./curry'),
-curry = c.curry,
-u = require('./util'),
-reduceStrings = u.reduceStrings,
-each = u.each,
-hasOwnProperty = u.hasOwnProperty,
-eachOwn = u.eachOwn,
+c                = require('./curry'),
+curry            = c.curry,
+u                = require('./util'),
+reduceStrings    = u.reduceStrings,
+each             = u.each,
+hasOwnProperty   = u.hasOwnProperty,
+eachOwn          = u.eachOwn,
 reverseArguments = u.reverseArguments,
-apply = u.apply,
-compose2 = u.compose2,
-reverse = u.reverse,
-createLazy = u.createLazy,
-tail = u.tail,
-head = u.head,
-extend = u.extend,
-add = curry(function(a,b){ return a + b; }),
+apply            = u.apply,
+compose2         = u.compose2,
+reverse          = u.reverse,
+createLazy       = u.createLazy,
+rest             = u.rest,
+head             = u.head,
+extend           = u.extend,
+add              = curry(function(a,b){ return a + b; }),
+headRest         = u.headRest,
 z;
 
 describe('Util',function(){
@@ -86,8 +87,8 @@ describe('Util',function(){
   it('head should work',function(){
     head([1,2,3,4]).must.eql(1);
   });
-  it('tail should work',function(){
-    tail([1,2,3,4]).must.eql([2,3,4]);
+  it('rest should work',function(){
+    rest([1,2,3,4]).must.eql([2,3,4]);
   });
   it('extend should work',function(){
     extend({},{c:3}).must.have.property('c',3);
@@ -110,5 +111,16 @@ describe('Util',function(){
 
     created1.must.not.equal(created2);
     (created1 === created2).must.not.be.true();
+  });
+  it('headRest should yield convenient and succinct recursion',function(){
+    var
+    test = headRest(function(h,r){
+      return r.length
+        ? test(r) + h
+        : h
+        ;
+    })
+    reversed = test(['1','2','3','4']);
+    reversed.must.eql('4321')
   });
 });

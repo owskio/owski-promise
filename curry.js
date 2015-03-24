@@ -52,7 +52,12 @@ curry = function(arity,fn){
         partial(fn,args)
       );
   });
-};
+},
+curry2 = curry(2),
+curry3 = curry(3),
+curry4 = curry(4),
+curry5 = curry(5),
+z;
 
 module.exports = {
   applyStrict: applyStrict,
@@ -60,5 +65,9 @@ module.exports = {
   arrayFunction: arrayFunction,
   getArity: getArity,
   partial: partial,
-  curry: curry
+  curry: curry,
+  curry2: curry2,
+  curry3: curry3,
+  curry4: curry4,
+  curry5: curry5,
 };

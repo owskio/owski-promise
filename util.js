@@ -4,14 +4,17 @@ c = require('./curry'),
 curry = c.curry,
 applyStrict = c.applyStrict,
 arrayFunction = c.arrayFunction,
+curry2 = c.curry2,
+curry3 = c.curry3,
+
+p = require('./primitives'),
+and = p.and,
 
 log = function(message){
   if(window.console) console.log(message);
 },
 apply = curry(applyStrict),
 
-curry2 = curry(2),
-curry3 = curry(3),
 compose2 = function(fnA,fnB){
   return function(){
     var intermediate = apply(fnB,this,arguments);
@@ -36,6 +39,7 @@ reduce = curry(function(acc,fn,list){
 reduceStrings = reduce(''),
 reduceNumbers = reduce(0),
 reduceBools   = reduce(false),
+all = reduceBools(and),
 
 // chew = function(target,adapters){
 //   return arrayFunction(function(args){
@@ -88,17 +92,14 @@ initTail = curry(function(fn,args){
   ]);
 }),
 
-extend = arrayFunction(function(args){
-  var
-  target = head(args),
-  sources = rest(args);
+extend = arrayFunction(headRest(function(target,sources){
   each(function(i,source){
     eachOwn(function(k,v){
       target[k] = v;
     },source);
   },sources);
   return target;
-}),
+})),
 create = curry(function(p,o){
   var B = function(){};
   B.prototype = p;
@@ -106,15 +107,6 @@ create = curry(function(p,o){
 }),
 createLazy = curry3(create),
 
-I = function(x){ return x; },
-K = function(x){
-  return function(){
-    return x;
-  };
-},
-undefined = I(),
-and = function(a,b){ return a && b; },
-all = reduceBools(and),
 z;
 
 module.exports = {
@@ -134,9 +126,7 @@ module.exports = {
   each: each,
   eachOwn: eachOwn,
   hasOwnProperty: hasOwnProperty,
-  I : I,
-  K : K,
-  undefined: undefined,
+
   rest: rest,
   head: head,
   all: all,
