@@ -5,14 +5,21 @@ create = u.create,
 each   = u.each,
 apply  = u.apply,
 all    = u.all,
+initTail = u.initTail,
 c = require('./curry'),
 arrayFunction = c.arrayFunction,
+p = require('./primitives'),
+obj = p.obj,
+fun = p.fun,
+bul = p.bul,
+arrayWrap = p.arrayWrap,
 
-isPromise = function(obj){
-  return typeof(obj) !== 'undefined'
-  && typeof(obj.then) === 'function'
-  && typeof(obj.resolved) === 'boolean'
-  && typeof(obj.observers) === 'object';
+isPromise = function(p){
+  return obj(p)
+    && fun(p.then)
+    && bul(p.resolved)
+    && obj(p.observers)
+    ;
 },
 promisePrototype = {
   //We need to maintain a stack initially
@@ -64,45 +71,35 @@ Promise = function(v){
   });
 },
 
+
+allIn = function(promises){
+  var
+  all = initTail(function(promises,promise){
+    return promises.length
+    ? all(promises).then(function(results){
+        return promise.then(function(v){
+          results.push(v);
+          return results;
+        });
+      })
+    : promise.then(arrayWrap)
+    ;
+  });
+  return all(promises);
+},
+all = arrayFunction(function(promises){
+  var nu = Promise();
+  allIn(promises).then(function(results){
+    apply(nu.resolve,nu,results);
+  });
+  return nu;
+}),
+
 z;
 
 Promise.s = {
-  all: arrayFunction(function(promises){
-    var
-    nu = Promise(),
-    results = [],
-    every;
-    each(function(i,promise){
-      every = promise.then(function(v){
-        console.log('i,value: ',i,v);
-        results[i] = v;
-        console.log('typeof(promises[i+1])',typeof(promises[i+1]));
-        return promises[i+1] || Promise('dontCare');
-      });
-    },promises);
-    every.then(function(){
-      console.log('results: ',results);
-      apply(nu.resolve,nu,results);
-    });
-    return nu;
-  })
-  // all: function(promises){
-  //   var
-  //   nu = Promise(),
-  //   resolutions = [],
-  //   results = [];
-  //   each(function(i,promise){
-  //     resolutions[i] = false;
-  //     promise.then(function(v){
-  //       resolutions[i] = true;
-  //       results[i] = v;
-  //       if(all(resolutions)){
-  //         apply(nu.resolve,nu,results);
-  //       }
-  //     });
-  //   },promises);
-  //   return nu;
-  // }
+  allIn: allIn,
+  all: all
 };
 
 module.exports = Promise;

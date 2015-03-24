@@ -63,14 +63,35 @@ eachOwn = curry(function(fn,obj){
 head = function(arr){
   return arr[0];
 },
-tail = function(arr){
+rest = function(arr){
   arr.shift();
   return arr;
 },
+headRest = curry(function(fn,args){
+  return apply(fn,this,[
+    head(args),
+    rest(args)
+  ]);
+}),
+init = function(arr){
+  arr.pop();
+  return arr;
+},
+tail = function(arr){
+  return arr[arr.length-1];
+},
+initTail = curry(function(fn,args){
+  var t = tail(args);
+  return apply(fn,this,[
+    init(args),
+    t
+  ]);
+}),
+
 extend = arrayFunction(function(args){
   var
   target = head(args),
-  sources = tail(args);
+  sources = rest(args);
   each(function(i,source){
     eachOwn(function(k,v){
       target[k] = v;
@@ -79,7 +100,6 @@ extend = arrayFunction(function(args){
   return target;
 }),
 create = curry(function(p,o){
-  //create(prot,Cons)
   var B = function(){};
   B.prototype = p;
   return extend(new B(),o);
@@ -93,8 +113,8 @@ K = function(x){
   };
 },
 undefined = I(),
-
-all = reduceBools(function(a,b){ return a && b; }),
+and = function(a,b){ return a && b; },
+all = reduceBools(and),
 z;
 
 module.exports = {
@@ -117,7 +137,9 @@ module.exports = {
   I : I,
   K : K,
   undefined: undefined,
-  tail: tail,
+  rest: rest,
   head: head,
   all: all,
+  headRest: headRest,
+  initTail: initTail
 };
