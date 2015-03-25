@@ -17,6 +17,7 @@ createLazy = u.createLazy,
 rest = u.rest,
 head = u.head,
 extend = u.extend,
+map = u.map,
 p = require('./primitives'),
 add = p.add,
 z;
@@ -32,9 +33,17 @@ describe('Util',function(){
     e = new A();
     hasOwnProperty(e,'b').must.be.true();
   });
+  it('map should work for arrays',function(){
+    map(function(i){
+      return '<' + i + '>';
+    },['a','b','c'])
+    .must.eql(
+      ['<a>','<b>','<c>']
+    );
+  });
   it('each should work for arrays',function(){
     var acc = ''
-    each(function(i,a_i){
+    each(function(a_i,i){
       acc += i + a_i;
     },['a','b','c','d']);
     acc.must.equal('0a1b2c3d');

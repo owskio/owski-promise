@@ -46,17 +46,34 @@ reduceBools   = reduce(false),
 //   });
 // },
 //each = chew(reduceStrings,[reverseArguments,I]),
+push = curry(function(i,t){
+  var thePush = Array.prototype.push;
+  apply(thePush,i,[t]);
+  return i;
+}),
 hasOwnProperty = curry(function(obj,prop){
   var theHasOwnProperty = Object.prototype.hasOwnProperty;
   return apply(theHasOwnProperty,obj,[prop]);
 }),
+map = curry(function(fn,obj){
+  return reduce([],function(acc,obj_i,i){
+    return push(acc,fn(obj_i,i));
+    //push(a,f(o))
+    //pull(f(o),a)
+    //pull(f(o))(a)
+    //pull.f(o)(a)
+    //thunkify(pull.f)(o,a)
+  },obj);
+}),
 each = curry(function(fn,obj){
-  reduceStrings(reverseArguments(fn),obj);
+  return reduce([],function(acc,obj_i,i){
+    fn(obj_i,i);
+  },obj);
 }),
 eachOwn = curry(function(fn,obj){
-  each(function(i,obj_i){
+  each(function(obj_i,i){
     if(hasOwnProperty(obj,i)){
-      fn(i,obj_i);
+      fn(obj_i,i);
     }
   },obj);
 }),
@@ -141,5 +158,6 @@ module.exports = {
   head: head,
   all: all,
   headRest: headRest,
-  initTail: initTail
+  initTail: initTail,
+  map: map
 };
