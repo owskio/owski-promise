@@ -74,18 +74,12 @@ describe('Util',function(){
   it('compose2 should compose 2 functions',function(){
     compose2(add(1),add(2))(3).must.equal(6);
   });
-  it('should provide an array reversal fn',function(){
+  it('reverse should reverse an array',function(){
     reverse(['a','b','c','d'])
       .must
       .eql(['d','c','b','a']);
   });
-  it('should provide a simple iteration mechanism',function(){
-    var acc = '';
-    each(function(index,val){
-      acc += index + val;
-    },['a','b','c','d']);
-    acc.must.equal('0a1b2c3d');
-  });
+
   it('head should work',function(){
     head([1,2,3,4]).must.eql(1);
   });
