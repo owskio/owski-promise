@@ -14,10 +14,11 @@ apply = u.apply,
 compose2 = u.compose2,
 reverse = u.reverse,
 createLazy = u.createLazy,
-tail = u.tail,
+rest = u.rest,
 head = u.head,
 extend = u.extend,
-add = curry(function(a,b){ return a + b; }),
+p = require('./primitives'),
+add = p.add,
 z;
 
 describe('Util',function(){
@@ -59,16 +60,18 @@ describe('Util',function(){
     },{a:1,b:2,c:3,d:4});
     acc.must.equal('a1b2c3d4');
   });
-  it('should provide a simple reduction',function(){
+  it('reduceStrings should reduce string '
+  + 'collections without having to supply '
+  + 'an initial accumulator value',function(){
     reduceStrings(add,['a','b','c','d'])
       .must.equal('abcd');
   });
-  it('should provide a combinator for reversing args',function(){
+  it('reverseArguments should alter a fn to reverse args input',function(){
     reverseArguments(add)('a','b')
       .must
       .equal('ba');
   });
-  it('should provide a binary composition',function(){
+  it('compose2 should compose 2 functions',function(){
     compose2(add(1),add(2))(3).must.equal(6);
   });
   it('should provide an array reversal fn',function(){
@@ -86,8 +89,8 @@ describe('Util',function(){
   it('head should work',function(){
     head([1,2,3,4]).must.eql(1);
   });
-  it('tail should work',function(){
-    tail([1,2,3,4]).must.eql([2,3,4]);
+  it('rest should work',function(){
+    rest([1,2,3,4]).must.eql([2,3,4]);
   });
   it('extend should work',function(){
     extend({},{c:3}).must.have.property('c',3);

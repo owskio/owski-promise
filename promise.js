@@ -1,18 +1,18 @@
 var
 
-u      = require('./util'),
-create = u.create,
-each   = u.each,
-apply  = u.apply,
-all    = u.all,
-initTail = u.initTail,
-c = require('./curry'),
+u             = require('./util'),
+create        = u.create,
+each          = u.each,
+apply         = u.apply,
+all           = u.all,
+initTail      = u.initTail,
+c             = require('./curry'),
 arrayFunction = c.arrayFunction,
-p = require('./primitives'),
-obj = p.obj,
-fun = p.fun,
-bul = p.bul,
-arrayWrap = p.arrayWrap,
+p             = require('./primitives'),
+obj           = p.obj,
+fun           = p.fun,
+bul           = p.bul,
+arrayWrap     = p.arrayWrap,
 
 isPromise = function(p){
   return obj(p)
