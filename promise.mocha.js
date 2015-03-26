@@ -1,6 +1,8 @@
 
-require('must');
-var Promise = require('./promise');
+var
+m       = require('must'),
+Promise = require('./promise'),
+z;
 
 describe('Promises',function(){
   it('Promises should be objects',function(){

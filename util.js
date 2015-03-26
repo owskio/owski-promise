@@ -1,16 +1,16 @@
 
 var
-c = require('./curry'),
-curry = c.curry,
-applyStrict = c.applyStrict,
-curry3 = c.curry3,
+c             = require('./curry'),
+curry         = c.curry,
+applyStrict   = c.applyStrict,
+curry3        = c.curry3,
 arrayFunction = c.arrayFunction,
-l = require('./lists'),
-headRest = l.headRest,
-each = l.each,
-eachOwn = l.eachOwn,
-a = require('./apply'),
-apply = a.apply,
+l             = require('./lists'),
+headRest      = l.headRest,
+each          = l.each,
+eachOwn       = l.eachOwn,
+a             = require('./apply'),
+apply         = a.apply,
 //a = require(),
 // chew = function(target,adapters){
 //   return arrayFunction(function(args){

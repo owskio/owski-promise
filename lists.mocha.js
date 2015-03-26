@@ -1,32 +1,19 @@
 
-require('must');
-
 var
-c = require('./curry'),
-curry = c.curry,
-u = require('./util'),
-hasOwnProperty = u.hasOwnProperty,
-createLazy = u.createLazy,
-extend = u.extend,
-a = require('./apply'),
-apply = a.apply,
-compose2 = a.compose2,
-reverseArguments = a.reverseArguments,
-l = require('./lists'),
-each = l.each,
-eachOwn = l.eachOwn,
+m             = require('must'),
+l             = require('./lists'),
+each          = l.each,
+eachOwn       = l.eachOwn,
 reduceStrings = l.reduceStrings,
-reverse = l.reverse,
-rest = l.rest,
-head = l.head,
-map = l.map,
-p = require('./primitives'),
-add = p.add,
+reverse       = l.reverse,
+rest          = l.rest,
+head          = l.head,
+map           = l.map,
+p             = require('./primitives'),
+add           = p.add,
 z;
 
 describe('Lists',function(){
-
-
   it('map should work for arrays',function(){
     map(function(i){
       return '<' + i + '>';
