@@ -7,11 +7,8 @@ curry = c.curry,
 u = require('./util'),
 reduceStrings = u.reduceStrings,
 each = u.each,
-hasOwnProperty = u.hasOwnProperty,
 eachOwn = u.eachOwn,
-reverseArguments = u.reverseArguments,
 apply = u.apply,
-compose2 = u.compose2,
 reverse = u.reverse,
 createLazy = u.createLazy,
 rest = u.rest,
@@ -19,7 +16,11 @@ head = u.head,
 extend = u.extend,
 map = u.map,
 p = require('./primitives'),
+hasOwnProperty = p.hasOwnProperty,
 add = p.add,
+a = require('./apply'),
+compose2 = a.compose2,
+reverseArguments = a.reverseArguments,
 z;
 
 describe('Util',function(){
@@ -33,48 +34,7 @@ describe('Util',function(){
     e = new A();
     hasOwnProperty(e,'b').must.be.true();
   });
-  it('map should work for arrays',function(){
-    map(function(i){
-      return '<' + i + '>';
-    },['a','b','c'])
-    .must.eql(
-      ['<a>','<b>','<c>']
-    );
-  });
-  it('each should work for arrays',function(){
-    var acc = ''
-    each(function(a_i,i){
-      acc += i + a_i;
-    },['a','b','c','d']);
-    acc.must.equal('0a1b2c3d');
-  });
-  it('each should work for objects',function(){
-    var acc = ''
-    each(function(i,a_i){
-      acc += i + a_i;
-    },{a:1,b:2,c:3,d:4});
-    acc.must.equal('1a2b3c4d');
-  });
-  it('eachOwn should work for arrays',function(){
-    var acc = ''
-    eachOwn(function(a_i,i){
-      acc += a_i + i ;
-    },['a','b','c','d']);
-    acc.must.equal('a0b1c2d3');
-  });
-  it('eachOwn should work for objects',function(){
-    var acc = ''
-    eachOwn(function(a_i,i){
-      acc += i + a_i ;
-    },{a:1,b:2,c:3,d:4});
-    acc.must.equal('a1b2c3d4');
-  });
-  it('reduceStrings should reduce string '
-  + 'collections without having to supply '
-  + 'an initial accumulator value',function(){
-    reduceStrings(add,['a','b','c','d'])
-      .must.equal('abcd');
-  });
+
   it('reverseArguments should alter a fn to reverse args input',function(){
     reverseArguments(add)('a','b')
       .must
@@ -83,18 +43,7 @@ describe('Util',function(){
   it('compose2 should compose 2 functions',function(){
     compose2(add(1),add(2))(3).must.equal(6);
   });
-  it('reverse should reverse an array',function(){
-    reverse(['a','b','c','d'])
-      .must
-      .eql(['d','c','b','a']);
-  });
 
-  it('head should work',function(){
-    head([1,2,3,4]).must.eql(1);
-  });
-  it('rest should work',function(){
-    rest([1,2,3,4]).must.eql([2,3,4]);
-  });
   it('extend should work',function(){
     extend({},{c:3}).must.have.property('c',3);
   });
