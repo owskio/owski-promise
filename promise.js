@@ -33,7 +33,7 @@ promisePrototype = {
     var
     args = arguments,
     me = this;
-    each(function(i,fn){
+    each(function(fn){
       apply(fn,me,args);
     },this.observers);
     return this;

@@ -105,17 +105,14 @@ initTail = curry(function(fn,args){
   ]);
 }),
 
-extend = arrayFunction(function(args){
-  var
-  target = head(args),
-  sources = rest(args);
-  each(function(i,source){
-    eachOwn(function(k,v){
+extend = arrayFunction(headRest(function(target,sources){
+  each(function(source){
+    eachOwn(function(v,k){
       target[k] = v;
     },source);
   },sources);
   return target;
-}),
+})),
 create = curry(function(p,o){
   var B = function(){};
   B.prototype = p;
