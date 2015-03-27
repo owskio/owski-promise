@@ -1,9 +1,9 @@
 
 var
-m = require('must'),
-u = require('./util'),
+m          = require('must'),
+u          = require('./util'),
 createLazy = u.createLazy,
-extend = u.extend,
+extend     = u.extend,
 z;
 
 describe('Util',function(){

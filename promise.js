@@ -30,14 +30,16 @@ promisePrototype = {
   //to only call observers as they are
   //registered.
   resolve: function(v){
-    this.value = v;
-    this.resolved = true;
-    var
-    args = arguments,
-    me = this;
-    each(function(fn){
-      apply(fn,me,args);
-    },this.observers);
+    if(!this.resolved){      
+      this.value = v;
+      this.resolved = true;
+      var
+      args = arguments,
+      me = this;
+      each(function(fn){
+        apply(fn,me,args);
+      },this.observers);
+    }
     return this;
   },
   then: function(fn){
@@ -64,9 +66,8 @@ promisePrototype = {
     }
   }
 },
-promiseHusk = create(promisePrototype),
 Promise = function(v){
-  return promiseHusk({
+  return create(promisePrototype,{
     observers: [],
     value:     v,
     resolved:  v ? true : false
