@@ -5,8 +5,8 @@ p = require('./primitives'),
 hasOwnProperty = p.hasOwnProperty,
 z;
 
-describe('Util',function(){
-  it('hasOwnProperty should work',function(){
+describe('Primitives',function(){
+  it('hasOwnProperty: should work',function(){
     var
     A = function(){ this.b = 2; },
     c = { d: 3 },

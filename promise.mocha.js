@@ -77,16 +77,25 @@ describe('Promises',function(){
     });
     p.resolve(5);
   });
-  it('cannot be resolved twice',function(done){
+  it('resolve: cannot be resolved twice',function(done){
     var
     p = Promise(),
+    pause = Promise(),
     acc = 0;
     p.then(function(){
       acc = acc + 1;
+      return pause;
+    })
+    .then(function(){
+      done();
     });
     p.resolve();
     p.resolve(4);
     p.resolve('asdf');
     acc.must.equal(1);
+    pause.resolve();
+  });
+  it('bind: should not assimilate, and force "return Promise(blah);"',function(){
+    
   });
 });

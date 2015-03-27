@@ -24,6 +24,14 @@ proxy = curry(function(fn,obj){
 bound = curry(function(obj,fnName){
   return proxy(obj[fnName],obj);
 }),
+antitype = function(fn){
+  return function(){
+    var
+    theUnshift = Array.prototype.unshift;
+    theUnshift.apply(arguments,[this]);
+    return apply(fn,this,arguments);
+  };
+},
 z;
 
 module.exports = {
@@ -32,5 +40,6 @@ module.exports = {
   compose2: compose2,
   proxy: proxy,
   bound: bound,
+  antitype:antitype,
   z:z
 };

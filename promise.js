@@ -12,6 +12,7 @@ arrayWrap     = p.arrayWrap,
 a             = require('./apply'),
 apply         = a.apply,
 bound         = a.bound,
+antitype      = a.antitype,
 l             = require('./lists'),
 initTail      = l.initTail,
 each          = l.each,
@@ -23,6 +24,21 @@ isPromise = function(p){
     && bul(p.resolved)
     && obj(p.observers)
     ;
+},
+bind = function(p,fn){
+  if (p.resolved) {
+    return apply(fn,p,[p.value]);
+  } else {
+    var
+    nu = Promise();
+    p.observers.push(function(){
+      apply(fn,this,arguments)
+      .then(function(v){
+        nu.resolve(v);
+      });
+    });
+    return nu;
+  }
 },
 promisePrototype = {
   //We need to maintain a stack initially
@@ -43,6 +59,7 @@ promisePrototype = {
     }
     return this;
   },
+  bind: antitype(bind),
   then: function(fn){
     //var me = this;
     var nu = Promise();

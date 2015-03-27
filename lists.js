@@ -1,14 +1,14 @@
 
 var
-c = require('./curry'),
-curry = c.curry,
-applyStrict = c.applyStrict,
-arrayFunction = c.arrayFunction,
-p = require('./primitives'),
-and = p.and,
+c              = require('./curry'),
+curry          = c.curry,
+applyStrict    = c.applyStrict,
+arrayFunction  = c.arrayFunction,
+p              = require('./primitives'),
+and            = p.and,
 hasOwnProperty = p.hasOwnProperty,
-a = require('./apply'),
-apply = a.apply,
+a              = require('./apply'),
+apply          = a.apply,
 
 reverse = function(arr){
   var theReverse = Array.prototype.reverse;
