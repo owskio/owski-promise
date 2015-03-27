@@ -18,7 +18,7 @@ K = function(x){
 },
 undefined = I(),
 and = function(a,b){ return a && b; },
-
+neu = function(){ return {}; },
 
 //DOM primitives
 log = function(message){

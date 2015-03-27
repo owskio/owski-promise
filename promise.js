@@ -77,6 +77,7 @@ Promise = function(v){
 allIn = function(promises){
   var
   all = initTail(function(promises,promise){
+    //Recursive promise consolidation, yay!
     return promises.length
     ? all(promises).then(function(results){
         return promise.then(function(v){
