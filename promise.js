@@ -11,6 +11,7 @@ bul           = p.bul,
 arrayWrap     = p.arrayWrap,
 a             = require('./apply'),
 apply         = a.apply,
+bound         = a.bound,
 l             = require('./lists'),
 initTail      = l.initTail,
 each          = l.each,
@@ -30,7 +31,7 @@ promisePrototype = {
   //to only call observers as they are
   //registered.
   resolve: function(v){
-    if(!this.resolved){      
+    if(!this.resolved){
       this.value = v;
       this.resolved = true;
       var
@@ -54,7 +55,13 @@ promisePrototype = {
     } else {
       this.observers.push(function(){
         var result = apply(fn,this,arguments);
+        //don't like this branch, not real monad
         if (isPromise(result))  {
+          //real monads ALWAYS return promises but then
+          //we would have return Promise(5) everywhere
+          // result.then(
+          //   bound(nu,'resolve')
+          // );
           result.then(function(v){
             nu.resolve(v);
           });

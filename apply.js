@@ -7,22 +7,30 @@ applyStrict = c.applyStrict,
 arrayFunction = c.arrayFunction,
 
 apply = curry(applyStrict),
-compose2 = function(fnA,fnB){
+compose2 = curry(function(fnA,fnB){
   return function(){
     var intermediate = apply(fnB,this,arguments);
     return apply(fnA,this,[intermediate]);
   };
-},
+}),
 reverseArguments = function(fn){
   return arrayFunction(function(args){
     return apply(fn,this,args.reverse());
   });
 },
+proxy = curry(function(fn,obj){
+  return arrayFunction(apply(fn,obj));
+}),
+bound = curry(function(obj,fnName){
+  return proxy(obj[fnName],obj);
+}),
 z;
 
 module.exports = {
   apply: apply,
   reverseArguments: reverseArguments,
   compose2: compose2,
+  proxy: proxy,
+  bound: bound,
   z:z
 };
