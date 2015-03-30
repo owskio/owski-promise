@@ -28,7 +28,12 @@ log = function(message){
 hasOwnProperty = curry(function(obj,prop){
   return obj.hasOwnProperty(prop);
 }),
-
+attribute = curry(function(name,obj){
+  return obj[name];
+}),
+attributesFor = curry(function(obj,name){
+  return obj[name];
+}),
 z;
 module.exports = {
   obj           : obj,
@@ -42,5 +47,7 @@ module.exports = {
   and:and,
   log: log,
   hasOwnProperty:hasOwnProperty,
+  attribute: attribute,
+  attributesFor: attributesFor,
   z:z
 };

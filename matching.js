@@ -6,6 +6,8 @@ apply = a.apply,
 l = require('./lists'),
 each = l.each,
 map = l.map,
+p = require('./primitives'),
+attributesFor = p.attributesFor,
 
 use = function(obj,fn){
   var
@@ -15,7 +17,7 @@ use = function(obj,fn){
     .split(')')[0]
     .split('(')[1]
     .split(',');
-  args = map(function(a){ return obj[a]; },argList);
+  args = map(attributesFor(obj),argList);
   return apply(fn,this,args);
 },
 z;
