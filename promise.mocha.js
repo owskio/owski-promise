@@ -34,7 +34,6 @@ describe('Promises',function(){
     p.then(function(five){
       five.must.equal(5);
       done();
-      return 8;
     });
     p.resolve(5);
   });
@@ -95,7 +94,16 @@ describe('Promises',function(){
     acc.must.equal(1);
     pause.resolve();
   });
-  it('bind: should not assimilate, and force "return Promise(blah);"',function(){
-    
+  it('bind: should not assimilate, and force "return Promise(blah);"',function(done){
+    var p = Promise();
+    p.bind(function(five){
+      five.must.equal(5);
+      return Promise(6 + five);
+    }).bind(function(eleven){
+      eleven.must.equal(11);
+      done();
+      return Promise('dont care');
+    });
+    p.resolve(5);
   });
 });

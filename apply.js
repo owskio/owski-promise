@@ -13,6 +13,14 @@ compose2 = curry(function(fnA,fnB){
     return apply(fnA,this,[intermediate]);
   };
 }),
+compose = arrayFunction(function(args){
+  var
+  theShift = Array.prototype.shift,
+  outer = apply(theShift,args,[]);
+  return args.length
+    ? compose2(outer,compose(args))
+    : outer;
+}),
 reverseArguments = function(fn){
   return arrayFunction(function(args){
     return apply(fn,this,args.reverse());
