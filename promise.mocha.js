@@ -29,13 +29,23 @@ describe('Promises',function(){
     });
   });
 
-  it('should defer execution for unresolved values',function(done){
+  it('should resolve',function(done){
     var p = Promise();
     p.then(function(five){
       five.must.equal(5);
       done();
     });
     p.resolve(5);
+  });
+  it('should resolve without arguments',function(done){
+    var
+    p = Promise(),
+    one = 1;
+    p.then(function(){
+      one.must.equal(1);
+      done();
+    });
+    p.resolve();
   });
   it('should provide a consolidation mechanism',function(done){
     var

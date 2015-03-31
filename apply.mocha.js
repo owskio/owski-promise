@@ -31,4 +31,18 @@ describe('Apply',function(){
     z;
     b.d(5).must.equal(11);
   });
+  it('antitype: should work without arguments',function(){
+    var
+    a = function(thing){      
+      return thing.c + 5;
+    },
+    b = create({
+      c: 6,
+      d: antitype(a)
+    },{
+      e:8
+    }),
+    z;
+    b.d().must.equal(11);
+  });
 });

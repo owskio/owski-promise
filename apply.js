@@ -36,7 +36,7 @@ antitype = function(fn){
   return function(){
     var
     theUnshift = Array.prototype.unshift;
-    theUnshift.apply(arguments,[this]);
+    apply(theUnshift,arguments,[this]);
     return apply(fn,this,arguments);
   };
 },

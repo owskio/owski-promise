@@ -4,6 +4,8 @@ u             = require('./util'),
 create        = u.create,
 c             = require('./curry'),
 arrayFunction = c.arrayFunction,
+curry         = c.curry,
+argumentsToArray  = c.argumentsToArray,
 p             = require('./primitives'),
 obj           = p.obj,
 fun           = p.fun,
@@ -17,6 +19,7 @@ l             = require('./lists'),
 initTail      = l.initTail,
 each          = l.each,
 all           = l.all,
+rest          = l.rest,
 
 isPromise = function(p){
   return obj(p)
@@ -40,25 +43,24 @@ bind = function(p,fn){
     return nu;
   }
 },
+resolve = function(p,v){
+  if(!p.resolved){
+    p.value = v;
+    p.resolved = true;
+    var args = arguments;
+    each(function(fn){
+      apply(fn,p,rest(argumentsToArray(args)));
+    },p.observers);
+  }
+  return p;
+},
 promisePrototype = {
   //We need to maintain a stack initially
   //but then upon resolution, to call to
   //each fn in the stack, but then after
   //to only call observers as they are
   //registered.
-  resolve: function(v){
-    if(!this.resolved){
-      this.value = v;
-      this.resolved = true;
-      var
-      args = arguments,
-      me = this;
-      each(function(fn){
-        apply(fn,me,args);
-      },this.observers);
-    }
-    return this;
-  },
+  resolve: antitype(resolve),
   bind: antitype(bind),
   then: function(fn){
     //var me = this;
@@ -118,6 +120,7 @@ allIn = function(promises){
 all = arrayFunction(function(promises){
   var nu = Promise();
   allIn(promises).then(function(results){
+    //apply(resolve(nu),nu,results);
     apply(nu.resolve,nu,results);
   });
   return nu;
