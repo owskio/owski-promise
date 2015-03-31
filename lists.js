@@ -108,5 +108,6 @@ initTail = curry(function(fn,args){
     headRest: headRest,
     initTail: initTail,
     map: map,
+    push: push,
     z:z
   };

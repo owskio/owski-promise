@@ -20,6 +20,7 @@ initTail      = l.initTail,
 each          = l.each,
 all           = l.all,
 rest          = l.rest,
+push          = l.push,
 
 isPromise = function(p){
   return obj(p)
@@ -54,43 +55,34 @@ resolve = function(p,v){
   }
   return p;
 },
+then = function(p,fn){
+  //var me = this;
+  var nu = Promise();
+  if (p.resolved) {
+    var result = apply(fn,p,[p.value]);
+    return isPromise(result)
+    ? result
+    : nu.resolve(result)
+    ;
+  } else {
+    p.observers.push(function(){
+      var result = apply(fn,this,arguments);
+      //don't like this branch, not real monad
+      if (isPromise(result))  {
+        result.then(function(v){
+          nu.resolve(v);
+        });
+      } else {
+        nu.resolve(result);
+      }
+    });
+    return nu;
+  }
+},
 promisePrototype = {
-  //We need to maintain a stack initially
-  //but then upon resolution, to call to
-  //each fn in the stack, but then after
-  //to only call observers as they are
-  //registered.
   resolve: antitype(resolve),
   bind: antitype(bind),
-  then: function(fn){
-    //var me = this;
-    var nu = Promise();
-    if (this.resolved) {
-      var result = apply(fn,this,[this.value]);
-      return isPromise(result)
-        ? result
-        : nu.resolve(result)
-        ;
-    } else {
-      this.observers.push(function(){
-        var result = apply(fn,this,arguments);
-        //don't like this branch, not real monad
-        if (isPromise(result))  {
-          //real monads ALWAYS return promises but then
-          //we would have return Promise(5) everywhere
-          // result.then(
-          //   bound(nu,'resolve')
-          // );
-          result.then(function(v){
-            nu.resolve(v);
-          });
-        } else {
-          nu.resolve(result);
-        }
-      });
-      return nu;
-    }
-  }
+  then: antitype(then)
 },
 Promise = function(v){
   return create(promisePrototype,{
@@ -107,10 +99,8 @@ allIn = function(promises){
     //Recursive promise consolidation, yay!
     return promises.length
     ? all(promises).then(function(results){
-        return promise.then(function(v){
-          results.push(v);
-          return results;
-        });
+        return promise
+          .then(push(results));
       })
     : promise.then(arrayWrap)
     ;
