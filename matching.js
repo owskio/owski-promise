@@ -1,14 +1,15 @@
 
 
 var
-c = require('./curry'),
-argList = c.argList,
-a = require('./apply'),
-apply = a.apply,
-l = require('./lists'),
-each = l.each,
-map = l.map,
-p = require('./primitives'),
+c             = require('./curry'),
+argList       = c.argList,
+curry         = c.curry,
+a             = require('./apply'),
+apply         = a.apply,
+l             = require('./lists'),
+each          = l.each,
+map           = l.map,
+p             = require('./primitives'),
 attributesFor = p.attributesFor,
 
 use = function(obj,fn){

@@ -3,6 +3,8 @@ var
 
 u = require('./util'),
 createLazy = u.createLazy,
+a = require('./apply'),
+antitype = a.antitype,
 
 publish = function(b,v){
   each(function(fn){
