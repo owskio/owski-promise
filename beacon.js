@@ -38,6 +38,16 @@ Beacon = function(v){
     value: v,
   });
 },
+Beaconsify = create(create(
+  Array.prototype,{
+
+  }
+)),
+Beacons = arrayFunction(function(beaconList){
+  return Beaconsify({
+
+  }).concat(beaconList);
+}),
 z;
 
 module.exports = Beacon;

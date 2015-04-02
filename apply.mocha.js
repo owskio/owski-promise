@@ -1,13 +1,19 @@
 var
-m = require('must'),
-a = require('./apply'),
-compose2 = a.compose2,
+m                = require('must'),
+c                = require('./curry'),
+curry            = c.curry,
+a                = require('./apply'),
+compose2         = a.compose2,
 reverseArguments = a.reverseArguments,
-antitype = a.antitype,
-p = require('./primitives'),
-add = p.add,
-u = require('./util'),
-create = u.create,
+antitype         = a.antitype,
+apply            = a.apply,
+splat            = a.splat,
+p                = require('./primitives'),
+add              = p.add,
+u                = require('./util'),
+create           = u.create,
+l                = require('./lists'),
+reduceNumbers    = l.reduceNumbers,
 z;
 
 describe('Apply',function(){
@@ -33,7 +39,7 @@ describe('Apply',function(){
   });
   it('antitype: should work without arguments',function(){
     var
-    a = function(thing){      
+    a = function(thing){
       return thing.c + 5;
     },
     b = create({
@@ -44,5 +50,21 @@ describe('Apply',function(){
     }),
     z;
     b.d().must.equal(11);
+  });
+  it('apply: should not require arguments',function(){
+    var
+    partialAdd = add('56'),
+    applied = apply(partialAdd,this,[]),
+    applied2 = apply(partialAdd,this)(),
+    z;
+    applied.must.equal('56undefined');
+    applied2.must.equal('56undefined');
+  });
+  it('splat: stuffs remaining args into array',function(){
+    var
+    fn = splat(function(a,b,c,stuff){
+      return a + b + c + reduceNumbers(add,stuff);
+    });
+    fn(1,2,3,4,5,6,7).must.equal(28);
   });
 });

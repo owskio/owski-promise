@@ -1,6 +1,8 @@
 
 
 var
+c = require('./curry'),
+argList = c.argList,
 a = require('./apply'),
 apply = a.apply,
 l = require('./lists'),
@@ -11,13 +13,8 @@ attributesFor = p.attributesFor,
 
 use = function(obj,fn){
   var
-  argList = fn
-    .toString()
-    .split('{')[0]
-    .split(')')[0]
-    .split('(')[1]
-    .split(',');
-  args = map(attributesFor(obj),argList);
+  desired = argList(fn);
+  args = map(attributesFor(obj),desired);
   return apply(fn,this,args);
 },
 z;

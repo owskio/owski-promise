@@ -16,7 +16,15 @@ arrayFunction = function(fn){
     return applyStrict(fn,this,[argumentArray]);
   };
 },
-getArity = function(fn){
+argList = function(fn){
+  //a more naive implementation,
+  //but  much simpler
+  // return fn
+  //   .toString()
+  //   .split('{')[0]
+  //   .split(')')[0]
+  //   .split('(')[1]
+  //   .split(',');
   var args = fn
     .toString()
     .split('{')[0]
@@ -36,7 +44,7 @@ curry = function(arity,fn){
   if(typeof(fn) === 'undefined'){
     if(typeof(arity) === 'function'){
       fn = arity;
-      arity = getArity(fn).length;
+      arity = argList(fn).length;
     } else if(typeof(arity) === 'number'){
       return function(fn){
         return curry(arity,fn);
@@ -61,7 +69,7 @@ module.exports = {
   applyStrict: applyStrict,
   argumentsToArray: argumentsToArray,
   arrayFunction: arrayFunction,
-  getArity: getArity,
+  argList: argList,
   partial: partial,
   curry: curry,
   curry2: curry2,

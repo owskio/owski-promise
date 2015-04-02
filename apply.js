@@ -5,6 +5,7 @@ c = require('./curry'),
 curry = c.curry,
 applyStrict = c.applyStrict,
 arrayFunction = c.arrayFunction,
+argList = c.argList,
 
 apply = curry(applyStrict),
 compose2 = curry(function(fnA,fnB){
@@ -33,12 +34,21 @@ bound = curry(function(obj,fnName){
   return proxy(obj[fnName],obj);
 }),
 antitype = function(fn){
-  return function(){
+  return arrayFunction(function(args){
+    args.unshift(this);
+    return apply(fn,this,args);
+  });
+},
+splat = function(fn){
+  var
+  breakPoint = argList(fn).length - 1;
+  return arrayFunction(function(arr){
     var
-    theUnshift = Array.prototype.unshift;
-    apply(theUnshift,arguments,[this]);
-    return apply(fn,this,arguments);
-  };
+    beginning = arr.slice(0,breakPoint),
+    ending = arr.slice(breakPoint,arr.length),
+    next = beginning.concat([ending]);
+    return apply(fn,this,next);
+  });
 },
 z;
 
@@ -49,5 +59,6 @@ module.exports = {
   proxy: proxy,
   bound: bound,
   antitype:antitype,
+  splat: splat,
   z:z
 };

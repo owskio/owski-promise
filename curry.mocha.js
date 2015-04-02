@@ -8,7 +8,7 @@ curry         = c.curry,
 partial       = c.partial,
 applyStrict   = c.applyStrict,
 arrayFunction = c.arrayFunction,
-getArity      = c.getArity,
+argList      = c.argList,
 partial       = c.partial,
 
 product = function(a,b,c){
@@ -28,8 +28,8 @@ describe('Curry',function(){
       args.must.eql([4,5,6]);
     })(4,5,6);
   });
-  it('getArity: should get an array of expected args',function(){
-    getArity(function(x,y,z){
+  it('argList: should get an array of expected args',function(){
+    argList(function(x,y,z){
       /* Dont care */
     })
     .must.eql(
