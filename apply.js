@@ -50,6 +50,14 @@ splat = function(fn){
     return apply(fn,this,next);
   });
 },
+chew = function(target,adapters){
+  return arrayFunction(function(args){
+    for(var i in args){
+      args[i] = (adapters[i] || I)(args[i]);
+    }
+    return apply(target,this,args);
+  });
+},
 z;
 
 module.exports = {
@@ -60,5 +68,6 @@ module.exports = {
   bound: bound,
   antitype:antitype,
   splat: splat,
+  chew:chew,
   z:z
 };

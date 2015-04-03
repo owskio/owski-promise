@@ -10,6 +10,7 @@ fun           = type('function'),
 bul           = type('boolean'),
 arrayWrap     = function(x){ return [x];},
 add = curry(function(a,b){ return a + b; }),
+multiply = curry(function(a,b){ return a* b; }),
 I = function(x){ return x; },
 K = function(x){
   return function(){
@@ -40,6 +41,7 @@ module.exports = {
   fun           : fun,
   bul           : bul,
   add: add,
+  multiply: multiply,
   arrayWrap     : arrayWrap,
   I : I,
   K : K,

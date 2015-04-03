@@ -8,8 +8,11 @@ reverseArguments = a.reverseArguments,
 antitype         = a.antitype,
 apply            = a.apply,
 splat            = a.splat,
+chew             = a.chew,
 p                = require('./primitives'),
 add              = p.add,
+multiply         = p.multiply,
+I                = p.I,
 u                = require('./util'),
 create           = u.create,
 l                = require('./lists'),
@@ -66,5 +69,9 @@ describe('Apply',function(){
       return a + b + c + reduceNumbers(add,stuff);
     });
     fn(1,2,3,4,5,6,7).must.equal(28);
+  });
+  it('chew: should preprocess arguments',function(){
+    var linear = chew(add,[multiply(2),I]);
+    linear(3,4).must.equal(10);
   });
 });

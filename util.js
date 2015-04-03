@@ -11,17 +11,6 @@ each          = l.each,
 eachOwn       = l.eachOwn,
 a             = require('./apply'),
 apply         = a.apply,
-//a = require(),
-// chew = function(target,adapters){
-//   return arrayFunction(function(args){
-//     for(var i in args){
-//       args[i] = (adapters[i] || I)(args[i]);
-//     }
-//     return apply(target,this,args);
-//   });
-// },
-//each = chew(reduceStrings,[reverseArguments,I]),
-
 
 extend = arrayFunction(headRest(function(target,sources){
   each(function(source){
