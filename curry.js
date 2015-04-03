@@ -63,9 +63,15 @@ curry = function(arity,fn){
 },
 curry2 = curry(2),
 curry3 = curry(3),
-z;
-
-module.exports = {
+mport = curry(function(obj,fn){
+  var results = [],
+  desired = argList(fn);
+  for(var i in desired){
+    results.push(obj[desired[i]]);
+  }
+  return fn.apply(this,results);
+}),
+xports = {
   applyStrict: applyStrict,
   argumentsToArray: argumentsToArray,
   arrayFunction: arrayFunction,
@@ -74,5 +80,9 @@ module.exports = {
   curry: curry,
   curry2: curry2,
   curry3: curry3,
+  mportFn: mport,
   z:z
-};
+},
+z;
+xports.mport = mport(xports);
+module.exports = xports;

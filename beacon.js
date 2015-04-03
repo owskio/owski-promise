@@ -1,10 +1,15 @@
 
 var
-
+c = require('./curry'),
+arrayFunction = c.arrayFunction,
 u = require('./util'),
 createLazy = u.createLazy,
+create = u.create,
 a = require('./apply'),
 antitype = a.antitype,
+apply = a.apply,
+l = require('./lists'),
+each = l.each,
 
 publish = function(b,v){
   each(function(fn){

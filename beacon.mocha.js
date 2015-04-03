@@ -1,5 +1,6 @@
 
 var
+m = require('must'),
 Beacon = require('./beacon'),
 z;
 
@@ -14,4 +15,5 @@ describe('beacon',function(){
     });
     b.set(6);
   });
+  
 });
