@@ -15,5 +15,7 @@ describe('beacon',function(){
     });
     b.set(6);
   });
-  
+  it('',function(){
+
+  });
 });

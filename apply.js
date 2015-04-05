@@ -1,12 +1,8 @@
 
+
+require('./curry').mport(function(curry,applyStrict,arrayFunction,argList,mportFn){
+
 var
-
-c = require('./curry'),
-curry = c.curry,
-applyStrict = c.applyStrict,
-arrayFunction = c.arrayFunction,
-argList = c.argList,
-
 apply = curry(applyStrict),
 compose2 = curry(function(fnA,fnB){
   return function(){
@@ -58,9 +54,8 @@ chew = function(target,adapters){
     return apply(target,this,args);
   });
 },
-z;
-
-module.exports = {
+z,
+xports = {
   apply: apply,
   reverseArguments: reverseArguments,
   compose2: compose2,
@@ -71,3 +66,7 @@ module.exports = {
   chew:chew,
   z:z
 };
+xports.mport = mportFn(xports);
+module.exports = xports;
+
+});
