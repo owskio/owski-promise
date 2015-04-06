@@ -1,5 +1,10 @@
 
 var
+a = require('./argList'),
+argList = a.argList,
+mx = require('./mport-xport'),
+mport = mx.mport,
+xport = mx.xport,
 
 applyStrict = function(fn,context,argumentArray){
   return typeof(fn) === 'function'
@@ -15,23 +20,6 @@ arrayFunction = function(fn){
     var argumentArray = argumentsToArray(arguments);
     return applyStrict(fn,this,[argumentArray]);
   };
-},
-argList = function(fn){
-  //a more naive implementation,
-  //but  much simpler
-  // return fn
-  //   .toString()
-  //   .split('{')[0]
-  //   .split(')')[0]
-  //   .split('(')[1]
-  //   .split(',');
-  var args = fn
-    .toString()
-    .split('{')[0]
-    .replace(' ','')
-    .match(/[^,\(\)\s]+/g);
-  args.shift();
-  return args;
 },
 partial = function(fn,argumentArray){
   return arrayFunction(function(args){
@@ -63,14 +51,7 @@ curry = function(arity,fn){
 },
 curry2 = curry(2),
 curry3 = curry(3),
-mport = curry(function(obj,fn){
-  var results = [],
-  desired = argList(fn);
-  for(var i in desired){
-    results.push(obj[desired[i]]);
-  }
-  return fn.apply(this,results);
-}),
+
 xports = {
   applyStrict: applyStrict,
   argumentsToArray: argumentsToArray,
