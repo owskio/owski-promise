@@ -1,5 +1,5 @@
 
-require('./apply').mport(function(compose2,reverseArguments,antitype,apply,splat,chew){
+require('./apply').mport(function(proxy,proxied,compose2,reverseArguments,antitype,apply,splat,chew){
 
   var
   m                = require('must'),
@@ -70,5 +70,24 @@ require('./apply').mport(function(compose2,reverseArguments,antitype,apply,splat
       var linear = chew(add,[multiply(2),I]);
       linear(3,4).must.equal(10);
     });
+    it('proxy: binds a fn to a context',function(){
+      var a = function(c){
+        return this.b + c;
+      },
+      d = proxy(a,{b:'b'});
+      d('c').must.equal('bc');
+      d.apply({c:'wtf'},['c']).must.equal('bc');
+    });
+    it('proxied: returns an fn already proxied',function(){
+      var a = {
+        d: 'd',
+        b: function(c){
+          return this.d + c;
+        }
+      },
+      e = proxied(a,'b');
+      e('c').must.equal('dc');
+    });
+
   });
 });
