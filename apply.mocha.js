@@ -9,7 +9,7 @@ require('./apply').mport(function(proxy,proxied,compose2,reverseArguments,antity
   add              = p.add,
   multiply         = p.multiply,
   I                = p.I,
-  u                = require('./util'),
+  u                = require('./object'),
   create           = u.create,
   l                = require('./lists'),
   reduceNumbers    = l.reduceNumbers,

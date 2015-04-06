@@ -54,11 +54,11 @@ require('./curry').mport(function(curry,partial,applyStrict,arrayFunction,argLis
           f('a')('b')()
         );
     });
-    it('use: pattern matches arguments to object keys',function(){
-      var a = {b:'2',c:'3'};
-      mportFn(a,function(c,b){
-        (c + b).must.equal('32');
-      });
-    });
+    // it('use: pattern matches arguments to object keys',function(){
+    //   var a = {b:'2',c:'3'};
+    //   mportFn(a,function(c,b){
+    //     (c + b).must.equal('32');
+    //   });
+    // });
   });
 });

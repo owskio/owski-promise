@@ -1,5 +1,7 @@
 
-
+var
+xport = require('./xport'),
+z;
 require('./curry').mport(function(curry,applyStrict,arrayFunction,argList,mportFn){
 
   var
@@ -54,8 +56,8 @@ require('./curry').mport(function(curry,applyStrict,arrayFunction,argList,mportF
       return apply(target,this,args);
     });
   },
-  z,
-  xports = {
+  z;
+  xport(module,{
     apply: apply,
     reverseArguments: reverseArguments,
     compose2: compose2,
@@ -65,8 +67,5 @@ require('./curry').mport(function(curry,applyStrict,arrayFunction,argList,mportF
     splat: splat,
     chew:chew,
     z:z
-  };
-  xports.mport = mportFn(xports);
-  module.exports = xports;
-
+  });
 });

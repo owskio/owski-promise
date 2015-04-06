@@ -1,7 +1,7 @@
 
 var
 m          = require('must'),
-u          = require('./util'),
+u          = require('./object'),
 createLazy = u.createLazy,
 create     = u.create,
 extend     = u.extend,

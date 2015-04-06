@@ -2,7 +2,7 @@
 var
 c = require('./curry'),
 arrayFunction = c.arrayFunction,
-u = require('./util'),
+u = require('./object'),
 createLazy = u.createLazy,
 create = u.create,
 a = require('./apply'),

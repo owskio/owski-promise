@@ -1,10 +1,7 @@
 
 var
-a = require('./argList'),
-argList = a.argList,
-mx = require('./mport-xport'),
-mport = mx.mport,
-xport = mx.xport,
+argList = require('./argList'),
+xport = require('./xport'),
 
 applyStrict = function(fn,context,argumentArray){
   return typeof(fn) === 'function'
@@ -51,8 +48,9 @@ curry = function(arity,fn){
 },
 curry2 = curry(2),
 curry3 = curry(3),
+z;
 
-xports = {
+xport(module,{
   applyStrict: applyStrict,
   argumentsToArray: argumentsToArray,
   arrayFunction: arrayFunction,
@@ -61,9 +59,5 @@ xports = {
   curry: curry,
   curry2: curry2,
   curry3: curry3,
-  mportFn: mport,
   z:z
-},
-z;
-xports.mport = mport(xports);
-module.exports = xports;
+});

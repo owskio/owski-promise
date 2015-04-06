@@ -1,6 +1,7 @@
 
 
 var
+xport = require('./xport'),
 curry = require('./curry').curry,
 type = curry(function(typeName,x){
   return typeof(x) === typeName;
@@ -36,7 +37,8 @@ attributesFor = curry(function(obj,name){
   return obj[name];
 }),
 z;
-module.exports = {
+
+xport(module,{
   obj           : obj,
   fun           : fun,
   bul           : bul,
@@ -50,6 +52,5 @@ module.exports = {
   log: log,
   hasOwnProperty:hasOwnProperty,
   attribute: attribute,
-  attributesFor: attributesFor,
-  z:z
-};
+  attributesFor: attributesFor
+});

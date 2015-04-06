@@ -1,6 +1,6 @@
 var
 
-u             = require('./util'),
+u             = require('./object'),
 create        = u.create,
 c             = require('./curry'),
 arrayFunction = c.arrayFunction,
