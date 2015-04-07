@@ -1,19 +1,10 @@
 
+require('must');
 require('./apply').mport(function(proxy,proxied,compose2,reverseArguments,antitype,apply,splat,chew){
-
-  var
-  m                = require('must'),
-  c                = require('./curry'),
-  curry            = c.curry,
-  p                = require('./primitives'),
-  add              = p.add,
-  multiply         = p.multiply,
-  I                = p.I,
-  u                = require('./object'),
-  create           = u.create,
-  l                = require('./lists'),
-  reduceNumbers    = l.reduceNumbers,
-  z;
+require('./primitives').mport(function(add,multiply,I){
+require('./curry').mport(function(curry){
+require('./object').mport(function(create){
+require('./lists').mport(function(reduceNumbers){
 
   describe('Apply',function(){
     it('compose2: should compose 2 functions',function(){
@@ -90,4 +81,4 @@ require('./apply').mport(function(proxy,proxied,compose2,reverseArguments,antity
     });
 
   });
-});
+});});});});});

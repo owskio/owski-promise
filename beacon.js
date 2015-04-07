@@ -1,16 +1,11 @@
 
-var
-c = require('./curry'),
-arrayFunction = c.arrayFunction,
-u = require('./object'),
-createLazy = u.createLazy,
-create = u.create,
-a = require('./apply'),
-antitype = a.antitype,
-apply = a.apply,
-l = require('./lists'),
-each = l.each,
 
+require('./curry').mport(function(arrayFunction){
+require('./object').mport(function(createLazy,create){
+require('./apply').mport(function(antitype,apply){
+require('./lists').mport(function(each){
+
+var
 publish = function(b,v){
   each(function(fn){
     apply(fn,b,[v]);
@@ -58,3 +53,4 @@ Beacons = arrayFunction(function(beaconList){
 z;
 
 module.exports = Beacon;
+});});});});

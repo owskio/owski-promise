@@ -1,10 +1,6 @@
 
 
-
-var
-m             = require('must'),
-z;
-
+require('must');
 require('./curry').mport(function(curry,partial,applyStrict,arrayFunction,argList,partial,mportFn){
   product = function(a,b,c){
     return a*b*c;
@@ -54,11 +50,5 @@ require('./curry').mport(function(curry,partial,applyStrict,arrayFunction,argLis
           f('a')('b')()
         );
     });
-    // it('use: pattern matches arguments to object keys',function(){
-    //   var a = {b:'2',c:'3'};
-    //   mportFn(a,function(c,b){
-    //     (c + b).must.equal('32');
-    //   });
-    // });
   });
 });
