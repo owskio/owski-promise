@@ -1,8 +1,5 @@
 
-var
-expose = require('./expose'),
-z;
-
+var expose = require('./expose');
 require('./apply').mport(function(apply){
 require('./primitives').mport(function(and,hasOwnProperty){
 require('./curry').mport(function(curry,applyStrict,arrayFunction){

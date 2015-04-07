@@ -1,10 +1,7 @@
 
-var
-expose         = require('./expose'),
-a             = require('./apply'),
-apply         = a.apply,
-z;
 
+var expose = require('./expose');
+require('./apply').mport(function(apply){
 require('./lists').mport(function(headRest,each,eachOwn){
 require('./curry').mport(function(curry,applyStrict,curry3,arrayFunction){
   var
@@ -31,4 +28,4 @@ require('./curry').mport(function(curry,applyStrict,curry3,arrayFunction){
     z:z
   });
 
-});});
+});});});

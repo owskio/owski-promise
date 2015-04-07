@@ -47,8 +47,7 @@ curry = function(arity,fn){
   });
 },
 curry2 = curry(2),
-curry3 = curry(3),
-z;
+curry3 = curry(3);
 
 expose(module,{
   applyStrict: applyStrict,
@@ -58,6 +57,5 @@ expose(module,{
   partial: partial,
   curry: curry,
   curry2: curry2,
-  curry3: curry3,
-  z:z
+  curry3: curry3
 });
