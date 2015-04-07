@@ -1,10 +1,10 @@
 
-var
-expose = require('./expose'),
-z;
 
+var expose = require('./expose');
 require('./object').mport(function(create){
 require('./curry').mport(function(curry,arrayFunction,argumentsToArray){
+require('./primitives').mport(function(obj,fun,bul,arrayWrap){
+require('./apply').mport(function(apply,bound,antitype){
 require('./lists').mport(function(initTail,each,all,rest,push){
   var
   isPromise = function(p){
@@ -99,14 +99,14 @@ require('./lists').mport(function(initTail,each,all,rest,push){
       apply(nu.resolve,nu,results);
     });
     return nu;
-  }),
-
-  z;
+  });
 
   Promise.s = {
     allIn: allIn,
     all: all
   };
 
-  module.exports = Promise;
+  expose(module,{
+    Promise: Promise
+  });
 });});});});});
