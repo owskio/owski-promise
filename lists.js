@@ -1,6 +1,6 @@
 
 var
-xport = require('./xport'),
+expose = require('./expose'),
 z;
 
 require('./apply').mport(function(apply){
@@ -77,7 +77,7 @@ require('./curry').mport(function(curry,applyStrict,arrayFunction){
       ]);
     });
 
-  xport(module,{
+  expose(module,{
     reduce: reduce,
     reduceStrings: reduceStrings,
     reduceNumbers: reduceNumbers,

@@ -1,7 +1,7 @@
 
 
 var
-xport = require('./xport'),
+expose = require('./expose'),
 curry = require('./curry').curry,
 type = curry(function(typeName,x){
   return typeof(x) === typeName;
@@ -38,7 +38,7 @@ attributesFor = curry(function(obj,name){
 }),
 z;
 
-xport(module,{
+expose(module,{
   obj           : obj,
   fun           : fun,
   bul           : bul,

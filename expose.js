@@ -2,7 +2,7 @@
 var
 
 argList = require('./argList'),
- 
+
 mport = function(obj,fn){
   if (typeof(fn) === 'undefined') {
     return function(fn2){
@@ -17,10 +17,10 @@ mport = function(obj,fn){
     return fn.apply(this,results);
   }
 },
-xport = function(mod,obj){
+expose = function(mod,obj){
   obj.mport = mport(obj);
   mod.exports = obj;
   return obj;
 };
 
-module.exports = xport;
+module.exports = expose;

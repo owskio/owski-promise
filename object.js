@@ -1,6 +1,6 @@
 
 var
-xport         = require('./xport'),
+expose         = require('./expose'),
 a             = require('./apply'),
 apply         = a.apply,
 z;
@@ -24,7 +24,7 @@ require('./curry').mport(function(curry,applyStrict,curry3,arrayFunction){
   createLazy = curry3(create),
   z;
 
-  xport(module,{
+  expose(module,{
     extend: extend,
     create: create,
     createLazy: createLazy,

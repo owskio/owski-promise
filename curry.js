@@ -1,7 +1,7 @@
 
 var
 argList = require('./argList'),
-xport = require('./xport'),
+expose = require('./expose'),
 
 applyStrict = function(fn,context,argumentArray){
   return typeof(fn) === 'function'
@@ -50,7 +50,7 @@ curry2 = curry(2),
 curry3 = curry(3),
 z;
 
-xport(module,{
+expose(module,{
   applyStrict: applyStrict,
   argumentsToArray: argumentsToArray,
   arrayFunction: arrayFunction,

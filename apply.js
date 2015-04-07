@@ -1,6 +1,6 @@
 
 var
-xport = require('./xport'),
+expose = require('./expose'),
 z;
 require('./curry').mport(function(curry,applyStrict,arrayFunction,argList,mportFn){
 
@@ -57,7 +57,7 @@ require('./curry').mport(function(curry,applyStrict,arrayFunction,argList,mportF
     });
   },
   z;
-  xport(module,{
+  expose(module,{
     apply: apply,
     reverseArguments: reverseArguments,
     compose2: compose2,
