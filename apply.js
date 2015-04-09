@@ -1,7 +1,5 @@
 
-var
-expose = require('./expose'),
-z;
+var expose = require('./expose');
 require('./curry').mport(function(curry,applyStrict,arrayFunction,argList,mportFn){
 
   var
@@ -31,10 +29,11 @@ require('./curry').mport(function(curry,applyStrict,arrayFunction,argList,mportF
   proxied = curry(function(obj,fnName){
     return proxy(obj[fnName],obj);
   }),
-  antitype = function(fn){
+  antitype = function(fn,propertyName){
     return arrayFunction(function(args){
-      args.unshift(this);
-      return apply(fn,this,args);
+      args.push(this[propertyName]);
+      this[propertyName] = apply(fn,this,args);
+      return this;
     });
   },
   splat = function(fn){

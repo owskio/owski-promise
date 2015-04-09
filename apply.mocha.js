@@ -17,29 +17,53 @@ require('./lists').mport(function(reduceNumbers){
     });
     it('antitype: should make an fn monkey patchable',function(){
       var
-      a = function(thing,num){
-        return thing.c + num;
-      },
+      a = curry(function(num,value){
+        return value + num;
+      }),
       b = create({
         c: 6,
-        d: antitype(a)
-      },{}),
-      z;
-      b.d(5).must.equal(11);
+        d: antitype(a,'c')
+      },{});
+      b.d(5).c.must.equal(11);
     });
     it('antitype: should work without arguments',function(){
       var
-      a = function(thing){
-        return thing.c + 5;
+      a = function(c){
+        return c + 5;
       },
       b = create({
         c: 6,
-        d: antitype(a)
+        d: antitype(a,'c')
       },{
         e:8
       }),
       z;
-      b.d().must.equal(11);
+      b.d().c.must.equal(11);
+    });
+    it('antitype: should work for both chaining, and curry-composing',function(){
+      var
+      a = curry(function(stored){
+        return stored;
+      }),
+      b = curry(function(first,stored){
+        return stored + first;
+      }),
+      c = curry(function(first,second,stored){
+        return stored + first + second;
+      }),
+      obj = create({
+        d: antitype(a,'value'),
+        e: antitype(b,'value'),
+        f: antitype(c,'value'),
+      },{
+        value: '0',
+      });
+      obj
+        .d()
+        .e('1')
+        .f('2','3')
+        .value
+        .must.equal('0123');
     });
     it('apply: should not require arguments',function(){
       var
