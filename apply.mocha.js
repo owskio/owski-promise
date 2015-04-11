@@ -1,6 +1,6 @@
 
 require('must');
-require('./apply').mport(function(proxy,proxied,compose2,reverseArguments,antitype,apply,splat,chew){
+require('./apply').mport(function(proxy,proxied,compose2,reverseArguments,antitype,apply,splat,chew,compose,head,rest){
 require('./primitives').mport(function(add,multiply,I){
 require('./curry').mport(function(curry){
 require('./object').mport(function(create){
@@ -9,6 +9,11 @@ require('./lists').mport(function(reduceNumbers){
   describe('Apply',function(){
     it('compose2: should compose 2 functions',function(){
       compose2(add(1),add(2))(3).must.equal(6);
+    });
+    it('compose: should compose all functions',function(){
+      compose(add(1))(2).must.equal(3);
+      compose(add(1),add(2))(3).must.equal(6);
+      compose(add(1),add(2),add(3),add(4))(5).must.equal(15);
     });
     it('reverseArguments: should alter a fn to reverse args input',function(){
       reverseArguments(add)('a','b')
@@ -103,6 +108,11 @@ require('./lists').mport(function(reduceNumbers){
       e = proxied(a,'b');
       e('c').must.equal('dc');
     });
-
+    it('head should work',function(){
+      head([1,2,3,4]).must.eql(1);
+    });
+    it('rest should work',function(){
+      rest([1,2,3,4]).must.eql([2,3,4]);
+    });
   });
 });});});});});

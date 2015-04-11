@@ -4,20 +4,45 @@ require('./curry').mport(function(curry,applyStrict,arrayFunction,argList,mportF
 
   var
   apply = curry(applyStrict),
-  compose2 = curry(function(fnA,fnB){
+  head = function(arr){
+    return arr[0];
+  },
+  rest = function(arr){
+    arr.shift();
+    return arr;
+  },
+  headRest = curry(function(fn,argsArray){
+    return apply(fn,this,[
+      head(argsArray),
+      rest(argsArray)
+    ]);
+  }),
+  init = function(arr){
+    arr.pop();
+    return arr;
+  },
+  tail = function(arr){
+    return arr[arr.length-1];
+  },
+  initTail = curry(function(fn,args){
+    var t = tail(args);
+    return apply(fn,this,[
+      init(args),
+      t
+    ]);
+  })
+  compose2 = function(fnA,fnB){
     return function(){
-      var intermediate = apply(fnB,this,arguments);
-      return apply(fnA,this,[intermediate]);
+      return apply(fnA,this,[
+        apply(fnB,this,arguments)
+      ]);
     };
-  }),
-  compose = arrayFunction(function(args){
-    var
-    theShift = Array.prototype.shift,
-    outer = apply(theShift,args,[]);
-    return args.length
-      ? compose2(outer,compose(args))
-      : outer;
-  }),
+  },
+  compose = arrayFunction(headRest(function(h,r){
+    return r.length
+      ? compose2(h,apply(compose,this,r))
+      : h;
+  })),
   reverseArguments = function(fn){
     return arrayFunction(function(args){
       return apply(fn,this,args.reverse());
@@ -31,9 +56,18 @@ require('./curry').mport(function(curry,applyStrict,arrayFunction,argList,mportF
   }),
   antitype = function(fn,propertyName){
     return arrayFunction(function(args){
-      args.push(this[propertyName]);
-      this[propertyName] = apply(fn,this,args);
-      return this;
+    //   console.log('propertyName',propertyName);
+    //   console.log('this',this);
+    //   console.log('this[propertyName]',this[propertyName]);
+      var passable = propertyName
+        ? this[propertyName]
+        : this;
+      args.push(passable);
+      var result = apply(fn,this,args);
+      propertyName && (this[propertyName] = result);
+      return propertyName
+        ? this
+        : result;
     });
   },
   splat = function(fn){
@@ -54,17 +88,22 @@ require('./curry').mport(function(curry,applyStrict,arrayFunction,argList,mportF
       }
       return apply(target,this,args);
     });
-  },
-  z;
+  };
   expose(module,{
     apply: apply,
     reverseArguments: reverseArguments,
     compose2: compose2,
+    compose: compose,
     proxy: proxy,
     proxied: proxied,
     antitype:antitype,
     splat: splat,
     chew:chew,
-    z:z
+    rest: rest,
+    head: head,
+    headRest: headRest,
+    init: init,
+    tail: tail,
+    initTail: initTail
   });
 });

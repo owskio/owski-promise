@@ -1,6 +1,11 @@
 
 require('must');
-require('./lens').mport(function(attr){
+require('./lens').mport(function(lens,acc){
+  var farm = {
+    cow:{
+      milk: 'yumm'
+    }
+  };
   var json = {
     a: [
       {
@@ -15,14 +20,19 @@ require('./lens').mport(function(attr){
           }
         ]
       },{
-        h:6
-        i: {j:7}
+        h:6,
+        i: { j: 7}
       }
     ]
   };
-  describe('',function(){
-    it('',function(){
-
-    });
+  describe('lens',function(){
+    // it('must provide property access',function(){
+    //   var
+    //   cow = lens(acc('cow')),
+    //   milk = lens(acc('milk'));
+    //   compose(cow,milk)(function(l,o){
+    //     console.log(l(o));
+    //   })(farm);
+    // });
   });
 });
