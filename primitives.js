@@ -37,7 +37,9 @@ require('./curry').mport(function(curry){
   attributesFor = curry(function(obj,name){
     return obj[name];
   }),
-  z;
+  thiss = function(){
+    return this;
+  };
 
   expose(module,{
     obj           : obj,
@@ -53,6 +55,7 @@ require('./curry').mport(function(curry){
     log: log,
     hasOwnProperty:hasOwnProperty,
     attribute: attribute,
-    attributesFor: attributesFor
+    attributesFor: attributesFor,
+    thiss:thiss
   });
 });

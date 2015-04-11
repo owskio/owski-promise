@@ -1,8 +1,8 @@
 
 
 var expose = require('./expose');
-require('./apply').mport(function(apply){
-require('./lists').mport(function(headRest,each,eachOwn){
+require('./apply').mport(function(apply,headRest){
+require('./lists').mport(function(each,eachOwn){
 require('./curry').mport(function(curry,applyStrict,curry3,arrayFunction){
   var
   extend = arrayFunction(headRest(function(target,sources){

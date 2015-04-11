@@ -45,18 +45,10 @@ require('./lists').mport(function(each,map,head,eachOwn,rest,reduceStrings,rever
       reduceStrings(add,['a','b','c','d'])
       .must.equal('abcd');
     });
-
     it('reverse should reverse an array',function(){
       reverse(['a','b','c','d'])
       .must
       .eql(['d','c','b','a']);
-    });
-
-    it('head should work',function(){
-      head([1,2,3,4]).must.eql(1);
-    });
-    it('rest should work',function(){
-      rest([1,2,3,4]).must.eql([2,3,4]);
     });
   });
 });});

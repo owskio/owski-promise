@@ -1,16 +1,17 @@
 
 var expose = require('./expose');
-require('./curry').mport(function(arrayFunction){
+require('./curry').mport(function(arrayFunction,curry){
 require('./object').mport(function(createLazy,create){
 require('./apply').mport(function(antitype,apply){
 require('./lists').mport(function(each){
 
   var
-  publish = function(b,v){
+  publish = curry(function(v,b){
     each(function(fn){
       apply(fn,b,[v]);
     },b.observers);
-  },
+    return b;
+  }),
   Beaconify = create({
     publish: antitype(publish),
     set: function(v){

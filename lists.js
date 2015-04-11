@@ -23,7 +23,6 @@ require('./curry').mport(function(curry,applyStrict,arrayFunction){
     apply(thePush,i,[t]);
     return i;
   }),
-
   map = curry(function(fn,obj){
     return reduce([],function(acc,obj_i,i){
       return push(acc,fn(obj_i,i));
@@ -45,34 +44,7 @@ require('./curry').mport(function(curry,applyStrict,arrayFunction){
         fn(obj_i,i);
       }
     },obj);
-  }),
-  head = function(arr){
-    return arr[0];
-  },
-  rest = function(arr){
-    arr.shift();
-    return arr;
-  },
-  headRest = curry(function(fn,args){
-    return apply(fn,this,[
-      head(args),
-      rest(args)
-    ]);
-  }),
-  init = function(arr){
-    arr.pop();
-    return arr;
-  },
-  tail = function(arr){
-    return arr[arr.length-1];
-  },
-  initTail = curry(function(fn,args){
-    var t = tail(args);
-    return apply(fn,this,[
-      init(args),
-      t
-      ]);
-    });
+  });
 
   expose(module,{
     reduce: reduce,
@@ -82,10 +54,6 @@ require('./curry').mport(function(curry,applyStrict,arrayFunction){
     reverse: reverse,
     each: each,
     eachOwn: eachOwn,
-    rest: rest,
-    head: head,
-    headRest: headRest,
-    initTail: initTail,
     map: map,
     push: push
   });

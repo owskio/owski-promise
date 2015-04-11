@@ -1,7 +1,8 @@
 
 
 require('must');
-require('./promise').mport(function(Promise){
+require('./apply').mport(function(apply){
+require('./promise').mport(function(Promise,then,resolveWith){
 
   describe('Promises',function(){
     it('Promises should be objects',function(){
@@ -16,48 +17,60 @@ require('./promise').mport(function(Promise){
     it('Promises thenned should create new promises',function(){
       var
       p1 = Promise(),
-      p2 = p1.then();
+      p2 = p1.then(function(v){return v;});
       p1.must.not.equal(p2);
       p1.observers.must.not.equal(p2.observers);
     });
 
     it('should immediately-automatically resolve',function(done){
-      Promise(5).then(function(five){
+      then(function(five){
         five.must.equal(5);
         done();
-      });
+      },Promise(5));
     });
 
     it('should resolve',function(done){
       var p = Promise();
-      p.then(function(five){
+      then(function(five){
         five.must.equal(5);
         done();
-      });
-      p.resolve(5);
+      },p);
+      p.resolveWith(5);
     });
     it('should resolve without arguments',function(done){
       var
-      p = Promise(),
-      one = 1;
+      p = Promise();
       p.then(function(){
-        one.must.equal(1);
         done();
       });
       p.resolve();
     });
-    it('should provide a consolidation mechanism',function(done){
+    it('should provide a simple consolidation mechanism',function(done){
+      var
+      p1 = Promise(),
+      p2 = Promise();
+
+      Promise.s.allIn([p1,p2])
+      .then(function(values){
+        values.must.eql([5,4]);
+        done();
+      });
+
+      p1.resolveWith(5);
+      p2.resolveWith(4);
+    });
+    it('should provide an elegant consolidation mechanism',function(done){
       var
       p1 = Promise(),
       p2 = Promise();
 
       Promise.s.all(p1,p2)
-      .then(function(v1,v2){
+      .then(apply(function(v1,v2){
         (v1 + v2).must.equal(9);
         done();
-      });
-      p1.resolve(5);
-      p2.resolve(4);
+      },null));
+      p1.resolveWith(5);
+      p2.resolveWith(4);
     });
     it('should accomodate many listeners',function(done){
       var
@@ -76,14 +89,14 @@ require('./promise').mport(function(Promise){
       }),
       z;
       Promise.s.all(p1,p2,p3,p4)
-      .then(function(v1,v2,v3,v4){
+      .then(apply(function(v1,v2,v3,v4){
         v1.must.equal('56');
         v2.must.equal('57');
         v3.must.equal('58');
         v4.must.equal('59');
         done();
-      });
-      p.resolve(5);
+      },null));
+      p.resolveWith(5);
     });
     it('resolve: cannot be resolved twice',function(done){
       var
@@ -98,8 +111,8 @@ require('./promise').mport(function(Promise){
         done();
       });
       p.resolve();
-      p.resolve(4);
-      p.resolve('asdf');
+      p.resolveWith(4);
+      p.resolveWith('asdf');
       acc.must.equal(1);
       pause.resolve();
     });
@@ -113,7 +126,7 @@ require('./promise').mport(function(Promise){
         done();
         return Promise('dont care');
       });
-      p.resolve(5);
+      p.resolveWith(5);
     });
   });
-});
+});});
