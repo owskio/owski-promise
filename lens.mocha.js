@@ -36,7 +36,7 @@ require('./lens').mport(function(lens,acc){
       milk = lens(acc('milk')),
       got = compose(cow,milk)(function(o,l){
         return l(o);
-      })(farm,I);
+      })(farm);
       got.must.be('yumm');
     });
     it('must provide property setting',function(){
@@ -45,7 +45,7 @@ require('./lens').mport(function(lens,acc){
       milk = lens(acc('milk'));
       compose(cow,milk)(function(o,l){
         l(o,'yuck');
-      })(farm,I);
+      })(farm);
       // eyes.inspect(farm);
     });
     it('must provide property mapping',function(){
@@ -55,7 +55,7 @@ require('./lens').mport(function(lens,acc){
       compose(cow,milk)(function(o,l){
         //f(f() + 'y!');
         l(o,l(o) + 'y!');
-      })(farm,I);
+      })(farm);
       eyes.inspect(farm);
     });
   });
