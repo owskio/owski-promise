@@ -3,30 +3,16 @@ require('must');
 var eyes = require('eyes');
 require('./apply').mport(function(compose){
 require('./primitives').mport(function(I){
-require('./lens').mport(function(lens,acc){
+require('./lens').mport(function(lens,acc,get,set,map,filter){
   var farm = {
     cow:{
-      milk: 'yumm'
+      milk: 'yumm',
+      stomachs:[
+        { contents: 'grass' },
+        { contents: 'digested grass' },
+        { contents: 'bullshit' },
+      ]
     }
-  };
-  var json = {
-    a: [
-      {
-        b: 1,
-        c: 2,
-        d: [
-          {
-            e:3,
-            f:4
-          },{
-            g: 5
-          }
-        ]
-      },{
-        h:6,
-        i: { j: 7}
-      }
-    ]
   };
   describe('lens',function(){
     it('must provide property getting',function(){
@@ -58,5 +44,27 @@ require('./lens').mport(function(lens,acc){
       })(farm);
       eyes.inspect(farm);
     });
+    it('must provide simple mapping',function(){
+      var
+      cow = lens(acc('cow')),
+      milk = lens(acc('milk'));
+      compose(cow,milk)(map(function(x){
+        return x + 'alicious!';
+      }))(farm);
+      eyes.inspect(farm);
+    });
+    // it('must provide filtering',function(){
+    //   var
+    //   cow = lens(acc('cow')),
+    //   milk = lens(acc('milk')),
+    //   stomachs = lens(acc('stomachs')),
+    //   where = compose(lens,filter);
+    //   compose(cow,milk,stomachs,where(function(s){
+    //     return s.contents === 'grass';
+    //   }))(map(function(x){
+    //     return x + 'alicious!';
+    //   }))(farm);
+    //   eyes.inspect(farm);
+    // });
   });
 });});});
