@@ -34,27 +34,28 @@ require('./lens').mport(function(lens,acc){
       var
       cow = lens(acc('cow')),
       milk = lens(acc('milk')),
-      got = compose(cow,milk)(function(l,o){
+      got = compose(cow,milk)(function(o,l){
         return l(o);
-      })(farm);
+      })(farm,I);
       got.must.be('yumm');
     });
     it('must provide property setting',function(){
       var
       cow = lens(acc('cow')),
       milk = lens(acc('milk'));
-      compose(cow,milk)(function(l,o){
+      compose(cow,milk)(function(o,l){
         l(o,'yuck');
-      })(farm);
-      eyes.inspect(farm);
+      })(farm,I);
+      // eyes.inspect(farm);
     });
     it('must provide property mapping',function(){
       var
       cow = lens(acc('cow')),
       milk = lens(acc('milk'));
-      compose(cow,milk)(function(l,o){
+      compose(cow,milk)(function(o,l){
+        //f(f() + 'y!');
         l(o,l(o) + 'y!');
-      })(farm);
+      })(farm,I);
       eyes.inspect(farm);
     });
   });
