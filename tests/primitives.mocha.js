@@ -1,7 +1,7 @@
 
 
 require('must');
-require('./primitives').mport(function(hasOwnProperty){  
+require('../primitives').mport(function(hasOwnProperty){  
   describe('Primitives',function(){
     it('hasOwnProperty: should work',function(){
       var

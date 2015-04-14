@@ -1,9 +1,9 @@
 
 require('must');
 var eyes = require('eyes');
-require('./apply').mport(function(compose){
-require('./primitives').mport(function(I){
-require('./lens').mport(function(lens,acc,get,set,map,filter){
+require('../apply').mport(function(compose){
+require('../primitives').mport(function(I){
+require('../lens').mport(function(lens,acc,get,set,map,filter){
   var farm = {
     cow:{
       milk: 'yumm',

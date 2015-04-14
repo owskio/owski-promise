@@ -1,9 +1,9 @@
 
 
-var expose = require('./expose');
+var expose = require('owski-expose');
 require('./apply').mport(function(apply,headRest){
 require('./lists').mport(function(each,eachOwn){
-require('./curry').mport(function(curry,applyStrict,curry3,arrayFunction){
+require('owski-curry').mport(function(curry,applyStrict,curry3,arrayFunction){
   var
   extend = arrayFunction(headRest(function(target,sources){
     each(function(source){

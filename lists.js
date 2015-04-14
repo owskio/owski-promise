@@ -1,8 +1,8 @@
 
-var expose = require('./expose');
+var expose = require('owski-expose');
 require('./apply').mport(function(apply){
 require('./primitives').mport(function(and,hasOwnProperty){
-require('./curry').mport(function(curry,applyStrict,arrayFunction){
+require('owski-curry').mport(function(curry,applyStrict,arrayFunction){
   var
   reverse = function(arr){
     var theReverse = Array.prototype.reverse;

@@ -1,6 +1,6 @@
 
-var expose = require('./expose');
-require('./curry').mport(function(curry,applyStrict,arrayFunction,argList,mportFn){
+var expose = require('owski-expose');
+require('owski-curry').mport(function(curry,applyStrict,arrayFunction,argList,mportFn){
 
   var
   apply = curry(applyStrict),

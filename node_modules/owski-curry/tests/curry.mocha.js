@@ -1,7 +1,7 @@
 
 
 require('must');
-require('./curry').mport(function(curry,partial,applyStrict,arrayFunction,argList,partial,mportFn){
+require('../curry').mport(function(curry,partial,applyStrict,arrayFunction,argList,partial,mportFn){
   product = function(a,b,c){
     return a*b*c;
   },

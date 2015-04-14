@@ -1,7 +1,7 @@
 
 
-var expose = require('./expose');
-require('./curry').mport(function(curry){
+var expose = require('owski-expose');
+require('owski-curry').mport(function(curry){
 
   var
   type = curry(function(typeName,x){

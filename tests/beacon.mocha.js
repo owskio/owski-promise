@@ -1,6 +1,6 @@
 
 require('must');
-require('./beacon').mport(function(Beacon){
+require('../beacon').mport(function(Beacon){
 
   describe('beacon',function(){
     it('observer: should observe',function(done){

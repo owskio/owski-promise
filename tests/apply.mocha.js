@@ -1,10 +1,10 @@
 
 require('must');
-require('./apply').mport(function(proxy,proxied,compose2,reverseArguments,antitype,apply,splat,chew,compose,head,rest){
-require('./primitives').mport(function(add,multiply,I){
-require('./curry').mport(function(curry){
-require('./object').mport(function(create){
-require('./lists').mport(function(reduceNumbers){
+require('../apply').mport(function(proxy,proxied,compose2,reverseArguments,antitype,apply,splat,chew,compose,head,rest){
+require('../primitives').mport(function(add,multiply,I){
+require('owski-curry').mport(function(curry){
+require('../object').mport(function(create){
+require('../lists').mport(function(reduceNumbers){
 
   describe('Apply',function(){
     it('compose2: should compose 2 functions',function(){

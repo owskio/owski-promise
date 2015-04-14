@@ -1,8 +1,8 @@
 
 
-var expose = require('./expose');
+var expose = require('owski-expose');
 require('./object').mport(function(create){
-require('./curry').mport(function(curry,arrayFunction,argumentsToArray){
+require('owski-curry').mport(function(curry,arrayFunction,argumentsToArray){
 require('./primitives').mport(function(obj,fun,bul,arrayWrap,undefined){
 require('./apply').mport(function(apply,bound,antitype,rest,initTail){
 require('./lists').mport(function(each,all,push){
@@ -30,9 +30,6 @@ require('./lists').mport(function(each,all,push){
     }
   }),
   resolveWith = curry(function(v,p){
-    if(typeof p === 'undefined'){
-      p = v; v = undefined;
-    }
     if(!p.resolved){
       p.value = v;
       p.resolved = true;

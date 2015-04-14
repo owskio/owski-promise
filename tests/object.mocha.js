@@ -1,7 +1,7 @@
 
 
 require('must');
-require('./object').mport(function(createLazy,create,extend){
+require('../object').mport(function(createLazy,create,extend){
 
   describe('Util',function(){
     it('extend should work',function(){

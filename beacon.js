@@ -1,6 +1,6 @@
 
-var expose = require('./expose');
-require('./curry').mport(function(arrayFunction,curry){
+var expose = require('owski-expose');
+require('owski-curry').mport(function(arrayFunction,curry){
 require('./object').mport(function(createLazy,create){
 require('./apply').mport(function(antitype,apply){
 require('./lists').mport(function(each){

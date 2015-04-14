@@ -1,8 +1,8 @@
 
 
 require('must');
-require('./apply').mport(function(apply){
-require('./promise').mport(function(Promise,then,resolveWith){
+require('../apply').mport(function(apply){
+require('../promise').mport(function(Promise,then,resolveWith){
 
   describe('Promises',function(){
     it('Promises should be objects',function(){
