@@ -11,7 +11,8 @@
     "pack": "npm pack",
     "test": "mocha *.mocha.js",
     "test-markdown": "mocha *.mocha.js --reporter markdown > test.results.md",
-    "test-html": "mocha *.mocha.js --reporter doc > test.results.html"
+    "test-html": "mocha *.mocha.js --reporter doc > test.results.html",
+    "test": "mocha tests/*.mocha.js"
   },
   "repository": {
     "type": "git",
