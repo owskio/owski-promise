@@ -11,8 +11,5 @@ require('../beacon').mport(function(Beacon){
       });
       b.set(6);
     });
-    it('',function(){
-
-    });
   });
 });

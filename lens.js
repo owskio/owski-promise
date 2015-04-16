@@ -1,7 +1,7 @@
 
 var expose = require('owski-expose');
-require('./primitives').mport(function(I){
-require('./lists').mport(function(eachOwn){
+require('owski-primitives').mport(function(I){
+require('owski-lists').mport(function(eachOwn){
 require('owski-curry').mport(function(curry,curry2,curry3){
   var
   lens = curry3(function(nextAcc,nextLens,o,prevAcc) {

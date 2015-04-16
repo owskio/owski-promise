@@ -1,8 +1,8 @@
 
 require('must');
 var eyes = require('eyes');
-require('../apply').mport(function(compose){
-require('../primitives').mport(function(I){
+require('owski-apply').mport(function(compose){
+require('owski-primitives').mport(function(I){
 require('../lens').mport(function(lens,acc,get,set,map,filter){
   var farm = {
     cow:{

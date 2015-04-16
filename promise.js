@@ -1,11 +1,11 @@
 
 
 var expose = require('owski-expose');
-require('./object').mport(function(create){
+require('owski-object').mport(function(create){
 require('owski-curry').mport(function(curry,arrayFunction,argumentsToArray){
-require('./primitives').mport(function(obj,fun,bul,arrayWrap,undefined){
-require('./apply').mport(function(apply,bound,antitype,rest,initTail){
-require('./lists').mport(function(each,all,push){
+require('owski-primitives').mport(function(obj,fun,bul,arrayWrap,undefined){
+require('owski-apply').mport(function(apply,bound,antitype,rest,initTail){
+require('owski-lists').mport(function(each,all,push){
   var
   isPromise = function(p){
     return obj(p)

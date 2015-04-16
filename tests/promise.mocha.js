@@ -1,7 +1,7 @@
 
 
 require('must');
-require('../apply').mport(function(apply){
+require('owski-apply').mport(function(apply){
 require('../promise').mport(function(Promise,then,resolveWith){
 
   describe('Promises',function(){
