@@ -21,7 +21,9 @@
     "owski-argList": ">= 0.0.1"
   },
   "devDependencies":{
-    "mocha":">= 2.2.4"
+    "mocha":">= 2.2.4",
+    "eyes": "",
+    "must":""
   },
   "author": "Ted Cackowski Jr",
   "license": "MIT"
