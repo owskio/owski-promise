@@ -1,17 +1,22 @@
 {
-  "name": "simplePromise",
+  "name": "owski-promise",
   "version": "0.0.1",
   "description": "promise implementation as simple as possible",
   "main": "promise.js",
   "dependencies": {
-    "must": "^0.12.0"
+    "eyes": "^0.1.8",
+    "must": "^0.12.0",
+    "owski-apply": "0.0.4",
+    "owski-curry": "0.0.3",
+    "owski-expose": "0.0.2",
+    "owski-lists": "0.0.1",
+    "owski-object": "0.0.1",
+    "owski-primitives": "0.0.1"
   },
   "devDependencies": {},
   "scripts": {
-    "pack": "npm pack",
-    "test": "mocha *.mocha.js",
-    "test-markdown": "mocha *.mocha.js --reporter markdown > test.results.md",
-    "test-html": "mocha *.mocha.js --reporter doc > test.results.html",
+    "test-markdown": "mocha *.mocha.js --reporter markdown > tests/test.results.md",
+    "test-html": "mocha *.mocha.js --reporter doc > tests/test.results.html",
     "test": "mocha tests/*.mocha.js"
   },
   "repository": {
@@ -29,5 +34,8 @@
   ],
   "author": "theodorecackowski",
   "license": "MIT",
-  "mocha":"mocha util.mocha.js"
+  "mocha": "mocha util.mocha.js",
+  "directories": {
+    "test": "tests"
+  }
 }
