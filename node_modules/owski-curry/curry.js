@@ -1,6 +1,6 @@
 
 var
-argList = require('owski-argList'),
+argList = require('owski-arglist'),
 expose = require('owski-expose'),
 
 applyStrict = function(fn,context,argumentArray){
